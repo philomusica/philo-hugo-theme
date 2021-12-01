@@ -6,7 +6,7 @@ const menuLink = document.querySelectorAll(".menu-link");
 const mq = window.matchMedia( "(min-width: 970px)" );
 const subItems = document.querySelectorAll(".sub-items");
 const subMenuNames = document.querySelectorAll(".sub-menu-name");
-const chevrons = document.querySelectorAll(".sub-menu-name .fa-chevron-down");
+const chevrons = document.querySelectorAll(".fa-chevron-down");
 
 const flattenNavItems = () => {
     menu.classList.add("flatten");
@@ -82,12 +82,12 @@ const setSubMenuHeight = (e) => {
 };
 
 const openCloseSubMenuForMobile = (e) => {
-	const sb = e.currentTarget.nextElementSibling;
+	const sb = e.currentTarget.parentElement.nextElementSibling;
 	const isClosed = sb.classList.contains("hidden");
 	closeAllSubMenuForMobile();
 	if(isClosed) {
 		openSubMenu(sb);
-		e.currentTarget.querySelector(".fa-chevron-down").classList.toggle("turn-chevron");
+		e.target.classList.toggle("turn-chevron");
 	}
 };
 
@@ -105,7 +105,7 @@ const widthChange = (mq) => {
 				});
 				closeAllSubMenuForMobile();
 				subItems.forEach(e => e.classList.remove("flatten"));
-				subMenuNames.forEach(e => e.removeEventListener("click", openCloseSubMenuForMobile));
+				chevrons.forEach(e => e.removeEventListener("click", openCloseSubMenuForMobile));
 				chevrons.forEach(e => e.classList.add("hidden", "no-display"));
 
     } else {
@@ -118,7 +118,7 @@ const widthChange = (mq) => {
 			e.removeEventListener("mouseenter",openCloseSubMenuOnHover);
 			e.removeEventListener("mouseleave", openCloseSubMenuOnHover);
 		});
-		subMenuNames.forEach(e => e.addEventListener("click", openCloseSubMenuForMobile));
+		chevrons.forEach(e => e.addEventListener("click", openCloseSubMenuForMobile));
 		chevrons.forEach(e => e.classList.remove("hidden", "no-display"));
     }
 };

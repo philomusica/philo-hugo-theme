@@ -8,6 +8,7 @@
 				{{ if not .Parent.IsHome }}
 					<a href="{{ .Parent.Permalink }}">< Back to {{ .Parent.Title }}</a>
 				{{ end }}
+				<div>{{ .Content }}</div>
 				{{ range .Pages }}
 					{{ $image := "" }}
 					{{ $image_description := "" }}

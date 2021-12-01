@@ -1,11 +1,11 @@
-<title>Philomusica</title>
+<title>{{ .Site.Title }}</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Philomusica" />
+<meta property="og:title" content="{{ .Site.Title }}" />
 <meta property="og:url" content="{{ .Site.BaseURL }}" />
 <meta property="og:type" content="website" />
-<meta name="description" content="Website of mixed voice choir Philomusica; based in Gloucestershire & Worcestershire we are the best and friendliest choir around." />
-<meta property="og:description" content="Website of mixed voice choir Philomusica; based in Gloucestershire & Worcestershire we are the best and friendliest choir around." />
+<meta name="description" content="{{ .Site.Params.Description }}" />
+<meta property="og:description" content="{{ .Site.Params.Description }}" />
 <meta property="og:image" content="" />
 <link rel="stylesheet" href="/css/all-super-min.css"/>
 <link rel="stylesheet" href="/css/fonts.css"/>

@@ -92,6 +92,11 @@ td {
   white-space: nowrap;
 }
 
+.sub-menu-item {
+  display: flex;
+  align-items: center;
+}
+
 .menu-link {
   transition: all 0.3s ease;
   background-color: white;
@@ -293,13 +298,13 @@ hr {
 }
 
 /* Link styling */
-a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image) {
+a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name){
   text-decoration: none;
   color: #2f74ce;
   position: relative;
 }
 
-a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image)::before {
+a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name)::before {
   content: '';
   position: absolute;
   bottom: 0;
