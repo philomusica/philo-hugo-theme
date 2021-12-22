@@ -14,7 +14,7 @@
 			<div class="container">
 				<h2 class="news-title">{{ $e.title }}</h2>
 				<div class="row{{ if not (modBool $i 2) }} reverse{{ end }}">
-					<div class="column">{{ $e.body }}</div>
+					<div class="column">{{ $e.body | markdownify }}</div>
 					<div class="column">
 						<img class="column-image" alt="{{ $e.image_description }}" loading="lazy" src="{{ $e.image }}"/>
 					</div>
