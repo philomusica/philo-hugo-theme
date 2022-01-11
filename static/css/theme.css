@@ -298,7 +298,7 @@ hr {
 }
 
 /* Link styling */
-a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name){
+a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name) {
   text-decoration: none;
   color: #2f74ce;
   position: relative;
