@@ -5,7 +5,6 @@ const menuItem = document.querySelectorAll(".menu-item");
 const menuLink = document.querySelectorAll(".menu-link");
 const mq = window.matchMedia( "(min-width: 970px)" );
 const subItems = document.querySelectorAll(".sub-items");
-const subMenuNames = document.querySelectorAll(".sub-menu-name");
 const chevrons = document.querySelectorAll(".fa-chevron-down");
 
 const flattenNavItems = () => {
