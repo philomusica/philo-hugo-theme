@@ -35,7 +35,7 @@ function processForm(e) {
 /* eslint-enable */
     e.preventDefault();
     clearAlert();
-    var URL = "https://api.philomusica.org.uk/contact-us";
+    var URL = "https://api.philomusica.org.uk/contact";
 
     const name = document.querySelector("input[id=\"name\"]");
     const email = document.querySelector("input[id=\"email\"]");
