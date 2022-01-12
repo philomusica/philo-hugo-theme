@@ -35,7 +35,7 @@
 								<textarea id="message" rows="4" cols="50" required></textarea>
 								<span class="floating-label">Message</span>
 							</div>
-							<div class="g-recaptcha" data-sitekey="6LfCteAcAAAAAGXmJIywiNWC42Z0HQI5iScBOuFa"></div>
+							<div class="g-recaptcha" data-sitekey="{{ .Site.Params.RecaptchaKey }}"></div>
 							<input class="form-submit" type="submit" />
 						</form>
 						<div class="feedback-section page-row container">
