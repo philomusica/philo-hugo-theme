@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
-  font-family: 'Nunito', Arial, Helvetica, sans-serif;
+  font-family: Nunito, Arial, Helvetica, sans-serif;
   color: #6f6f6f;
   line-height: 150%;
 }
@@ -238,7 +238,7 @@ article {
 }
 
 .news {
-  padding: 4rem 0 0 0;
+  padding: 4rem 0 0;
 }
 
 .center {
@@ -302,14 +302,14 @@ hr {
 }
 
 /* Link styling */
-a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name) {
+a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name) {
   text-decoration: none;
   color: #2f74ce;
   position: relative;
 }
 
-a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(.sub-menu-name)::before {
-  content: '';
+a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name)::before {
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -320,7 +320,7 @@ a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):not(
 }
 
 @media (hover: hover) and (pointer: fine) {
-  a:not(.menu-link):not(.call-to-action):not(.media-link):not(.gallery-image):hover::before {
+  a:not(.menu-link, .call-to-action, .media-link, .gallery-image):hover::before {
     left: 0;
     right: auto;
     width: 100%;
