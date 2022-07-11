@@ -3,7 +3,7 @@ const cross = document.querySelector(".cross");
 const menu = document.querySelector(".menu");
 const menuItem = document.querySelectorAll(".menu-item");
 const menuLink = document.querySelectorAll(".menu-link");
-const mq = window.matchMedia( "(min-width: 970px)" );
+const mq = window.matchMedia( "(min-width: 1100px)" );
 const subItems = document.querySelectorAll(".sub-items");
 const chevrons = document.querySelectorAll(".fa-chevron-down");
 
