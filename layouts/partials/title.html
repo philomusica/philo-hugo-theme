@@ -1,0 +1,13 @@
+{{ if .IsHome }}
+	<div class="hero-image" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ .Params.hero_image }});">
+		<div class="hero-image-text">{{ .Params.HeroImageText }}</div>
+	</div>
+{{ else if isset .Params "hero_image" }}
+	<div class="small-hero-image" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ .Params.hero_image }});">
+		<h1 class="small-hero-image-text">{{ .Title }}</h1>
+	</div>
+{{ else }}
+	<div class="intro center">
+		<h1>{{ .Title }}</h1>
+	</div>
+{{ end }}

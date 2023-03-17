@@ -1,59 +1,50 @@
 {{ define "main" }}
-	{{ if isset .Params "hero_image" }}
-		<div class="small-hero-image" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url({{ .Params.hero_image }});">
-			<h1 class="small-hero-image-text">{{ .Title }}</h1>
-		</div>
-	{{ else }}
-		<div class="intro center">
-			<h1>{{ .Title }}</h1>
-		</div>
-	{{ end }}
-		<div class="section">
-			<div class="container">
-				<div class="row">
-					<div class="column center">
-						Please contact us using the form below:
-					</div>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="column center">
+					Please contact us using the form below:
 				</div>
-            </div>
+			</div>
 		</div>
-		<div class="section">
-            <div class="container">
-				<div class="row">
-					<div class="column center">
-						<form onSubmit="processForm(event)">
-							<div class="form-input">
-								<input id="name" type="text" class="text-input" required/>
-							<span class="floating-label">Name</span>
-							</div>
-							<div class="form-input">
-								<input id="email" type="email" class="text-input" required/>
-								<span class="floating-label">Email Address</span>
-							</div>
+	</div>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="column center">
+					<form onSubmit="processForm(event)">
+						<div class="form-input">
+							<input id="name" type="text" class="text-input" required/>
+						<span class="floating-label">Name</span>
+						</div>
+						<div class="form-input">
+							<input id="email" type="email" class="text-input" required/>
+							<span class="floating-label">Email Address</span>
+						</div>
 
-							<div class="form-input">
-								<textarea id="message" rows="4" cols="50" required></textarea>
-								<span class="floating-label">Message</span>
-							</div>
-							<div class="g-recaptcha" data-sitekey="{{ .Site.Params.RecaptchaKey }}"></div>
-							<input class="form-submit" type="submit" />
-						</form>
-						<div class="feedback-section page-row container">
-							<div class="alert alert-success transparent">
-								<i class="fas fa-check-circle"></i>
-								Message sent to Philomusica. We will respond to your message as soon as possible!
-							</div>
-							<div class="alert alert-fail transparent">
-								<i class="fas fa-exclamation-circle"></i>
-								Something went wrong! Please try again later.
-							</div>
-							<div class="alert alert-warn transparent">
-								<i class="fas fa-exclamation-circle"></i>
-								Please tick "I'm not a robot".
-							</div>
+						<div class="form-input">
+							<textarea id="message" rows="4" cols="50" required></textarea>
+							<span class="floating-label">Message</span>
+						</div>
+						<div class="g-recaptcha" data-sitekey="{{ .Site.Params.RecaptchaKey }}"></div>
+						<input class="form-submit" type="submit" />
+					</form>
+					<div class="feedback-section page-row container">
+						<div class="alert alert-success transparent">
+							<i class="fas fa-check-circle"></i>
+							Message sent to Philomusica. We will respond to your message as soon as possible!
+						</div>
+						<div class="alert alert-fail transparent">
+							<i class="fas fa-exclamation-circle"></i>
+							Something went wrong! Please try again later.
+						</div>
+						<div class="alert alert-warn transparent">
+							<i class="fas fa-exclamation-circle"></i>
+							Please tick "I'm not a robot".
 						</div>
 					</div>
 				</div>
-            </div>
+			</div>
 		</div>
+	</div>
 {{ end }}
