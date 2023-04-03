@@ -22,8 +22,7 @@
 {{ else if isset .Params "photos" }}
 	<script src="/js/fslightbox.js"></script>
 {{ else if isset .Params "tickets" }}
-	<script src="/js/tickets.js"></script>
-{{ else if isset .Params "basket" }}
 	<script type="module" src="/js/tickets.js"></script>
+{{ else if isset .Params "basket" }}
 	<script type="module" src="/js/basket.js"></script>
 {{ end }}
