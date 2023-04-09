@@ -33,12 +33,30 @@ export function displayError(err) {
 }
 
 /**
- * getOrdersFromBasket checks the sessionStorage relating to tickets a customer has put in their basket, and returns this data in an object of objects
+ * getOrdersFromBasket checks the localStorage relating to tickets a customer has put in their basket, and returns this data in an object of objects
  * @returns {object} basketItems - an object of containing objects for each concert, the objects are named by concert ID an contain number of tickets for each type which the customer has put in their basket. If no concerts, an empty object is returned
 */
 export function getOrdersFromBasket() {
-	const concerts = JSON.parse(sessionStorage.getItem("concerts"));
+	const concerts = JSON.parse(localStorage.getItem("concerts"));
 	return concerts ? concerts : {};
+}
+
+export function removeIfEmpty(e) {
+	const orderId = e.target.parentElement.parentElement.className.split('-')[1];
+	const concert = getOrdersFromBasket()[orderId];
+	if(concert.fullPriceCount === 0 && concert.concessionPriceCount === 0)
+		removeItemFromBasket(orderId);
+	return;
+}
+	
+export function removeItemFromBasket(orderId) {
+	let concerts = getOrdersFromBasket();
+	delete concerts[orderId];
+	localStorage.setItem("concerts", JSON.stringify(concerts));
+	const order = document.querySelector(`.basket-items .concert-${orderId}`);
+	if(order)
+		order.remove();
+	return;
 }
 
 /**
@@ -46,7 +64,7 @@ export function getOrdersFromBasket() {
  * @param {object} c - a concert contain information like ID, title, description, location, date, ticket data etc.
  * @returns null
 */
-export function renderConcert(concertData) {
+export function renderConcert(concertData, insertPoint) {
 	let fullPrice, concession;
 	if(concertData.concessionPrice === 0)
 		concession = "FREE";
@@ -64,7 +82,7 @@ export function renderConcert(concertData) {
 			<div>${concertData.title}</div>
 			<div>${concertData.description}</div>
 			<div>${concertData.location}</div>
-			<div class="bob">${concertData.date} ${concertData.time}</div>
+			<div>${concertData.date} ${concertData.time}</div>
 			<!-- <img src=${concertData.imageURL} alt=${concertData.description}> -->
 			<div class="full-price">
 				<span>Adult: ${fullPrice}</span> <button class="minus">-</button><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>
@@ -74,9 +92,10 @@ export function renderConcert(concertData) {
 			</div>
 		</div>
 	`;
-	document.querySelector("#content .container").insertAdjacentHTML("beforeend", div);
+	document.querySelector(`#content .container .${insertPoint}`).insertAdjacentHTML("beforeend", div);
 	const buttons = document.querySelectorAll(`.concert-${concertData.id} button`);
 	buttons.forEach(button => button.addEventListener("click", event => counterButtonsClick(event, concertData)));
+	buttons.forEach(button => button.addEventListener("click", removeIfEmpty));
 	return;
 }
 
@@ -113,7 +132,7 @@ export function updateOrdersInBasket(order, concertData) {
 
 	if((newOrder.fullPriceCount + newOrder.concessionPriceCount) <= concertData.availableTickets) {
 		concerts[order.id] = newOrder;
-		sessionStorage.setItem("concerts", JSON.stringify(concerts));
+		localStorage.setItem("concerts", JSON.stringify(concerts));
 	} else {
 		displayError("no more tickets are available");
 	}
