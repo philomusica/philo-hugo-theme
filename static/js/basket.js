@@ -7,11 +7,13 @@ import {
 } from "./basket-lib.js";
 
 const BASKET_ITEMS = "basket-items";
+const TOTAL = "total";
+
 async function main() {
 	const orders = getOrdersFromBasket();
 	const concerts = await getConcertsInfoFromOrders(orders);
 	for (const concert of concerts) {
-		renderConcert(concert, BASKET_ITEMS);
+		renderConcert(concert, BASKET_ITEMS, true);
 		document.querySelectorAll(`.concert-${concert.id} button`).forEach(button => button.addEventListener("click", removeIfEmpty));
 	}
 	addDeleteButtons(orders);
@@ -20,10 +22,18 @@ async function main() {
 	const result = renderTotal(total, orders, BASKET_ITEMS);
 	if (!result)
 		addEmptyBasketMessage(BASKET_ITEMS);
+	else
+		addCheckoutButton(TOTAL);
 	addUpdateTotalEventListener(concerts);
 	return;
 }
 
+function addCheckoutButton(insertPoint) {
+	const checkoutButton = document.querySelector(".checkout");
+	if (!checkoutButton)
+		document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", `<button class="checkout">Checkout</button>`);
+	return;
+}
 function addDeleteButtons(orders) {
 	for (const [id, _] of Object.entries(orders)) {
 		const concertCard = document.querySelector(`.concert-${id}`);
@@ -49,6 +59,8 @@ function addUpdateTotalEventListener(concerts) {
 			const result = renderTotal(total, orders, BASKET_ITEMS);
 			if (!result)
 				addEmptyBasketMessage(BASKET_ITEMS);
+			else
+				addCheckoutButton(TOTAL);
 		});
 	});
 	return
@@ -97,7 +109,7 @@ async function getConcertsInfoFromOrders(orders) {
 function renderTotal(total, orders, insertPoint) {
 	let result = false;
 	const innerText = `Total: ${total}`;
-	let totalNode = document.querySelector(".total");
+	let totalNode = document.querySelector(`.${TOTAL}`);
 	if (orders && Object.keys(orders).length === 0 && Object.getPrototypeOf(orders) === Object.prototype && totalNode) {
 		totalNode.remove();
 	} else if (orders && Object.keys(orders).length > 0 && Object.getPrototypeOf(orders) === Object.prototype) {
@@ -105,7 +117,7 @@ function renderTotal(total, orders, insertPoint) {
 		if (totalNode) {
 			totalNode.innerHTML = innerText;
 		} else {
-			const totalHTML = `<div class="total">${innerText}</div>`;
+			const totalHTML = `<div class="${TOTAL}">${innerText}</div>`;
 			const ordersHTML = document.querySelector(`.${insertPoint}`);
 			ordersHTML.insertAdjacentHTML("afterend", totalHTML);
 		}

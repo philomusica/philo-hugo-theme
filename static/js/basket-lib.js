@@ -64,17 +64,37 @@ export function removeItemFromBasket(orderId) {
  * @param {object} c - a concert contain information like ID, title, description, location, date, ticket data etc.
  * @returns null
 */
-export function renderConcert(concertData, insertPoint) {
+export function renderConcert(concertData, insertPoint, editable) {
 	let fullPrice, concession;
 	if(concertData.concessionPrice === 0)
 		concession = "FREE";
 	else
-		concession = `£${concertData.concessionPrice.toString()}`;
+		concession = `£${concertData.concessionPrice}`;
 
 	if(concertData.fullPrice === 0)
 		fullPrice = "FREE";
 	else
-		fullPrice = `£${concertData.fullPrice.toString()}`;
+		fullPrice = `£${concertData.fullPrice}`;
+
+	let fullPriceCount, conccessionPriceCount;
+	if(editable) {
+		fullPriceCount = `<button class="minus">-</button><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>`;
+		conccessionPriceCount = `<button class="minus">-</button><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>`;
+	} else {
+		fullPriceCount = `<span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span>`;
+		conccessionPriceCount = `<span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span>`;
+	}
+
+	const fullPriceValueAndCount = `
+		<div class="full-price">
+			<span>Adult: ${fullPrice}</span> ${fullPriceCount}
+		</div>`;
+
+	const concessionValueAndCount = `
+		<div class="concession">
+			<span>${CONCESSION_CRITERIA}: ${concession}</span> ${conccessionPriceCount}
+		</div>
+	`;
 	
 	const div = `
 		<div class=concert-${concertData.id}>
@@ -84,12 +104,8 @@ export function renderConcert(concertData, insertPoint) {
 			<div>${concertData.location}</div>
 			<div>${concertData.date} ${concertData.time}</div>
 			<!-- <img src=${concertData.imageURL} alt=${concertData.description}> -->
-			<div class="full-price">
-				<span>Adult: ${fullPrice}</span> <button class="minus">-</button><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>
-			</div>
-			<div class="concession">
-				<span>${CONCESSION_CRITERIA}: ${concession}</span><button class="minus">-</button><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>
-			</div>
+			${fullPriceValueAndCount}
+			${concessionValueAndCount}
 		</div>
 	`;
 	document.querySelector(`#content .container .${insertPoint}`).insertAdjacentHTML("beforeend", div);
