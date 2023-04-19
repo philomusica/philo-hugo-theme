@@ -44,7 +44,7 @@ export function getOrdersFromBasket() {
 export function removeIfEmpty(e) {
 	const orderId = e.target.parentElement.parentElement.className.split('-')[1];
 	const concert = getOrdersFromBasket()[orderId];
-	if(concert.fullPriceCount === 0 && concert.concessionPriceCount === 0)
+	if(concert.numOfFullPrice === 0 && concert.numOfConcessions === 0)
 		removeItemFromBasket(orderId);
 	return;
 }
@@ -123,11 +123,11 @@ export function renderTicketsInBasketCounter(orders) {
 	for(const [id, order ] of Object.entries(orders)) {
 		const fullPriceCounter = document.querySelector(`.concert-${id} .${FULL_PRICE_COUNTER_CLASS_NAME}`);
 		if(fullPriceCounter)
-			fullPriceCounter.innerHTML = order.fullPriceCount;
+			fullPriceCounter.innerHTML = order.numOfFullPrice;
 
 		const concessionCounter = document.querySelector(`.concert-${id} .${CONCESSION_COUNTER_CLASS_NAME}`);
 		if(concessionCounter)
-			concessionCounter.innerHTML = order.concessionPriceCount;
+			concessionCounter.innerHTML = order.numOfConcessions;
 	}
 }
 
@@ -137,16 +137,15 @@ export function renderTicketsInBasketCounter(orders) {
  * @return {object} concerts - an updated basket
 */
 export function updateOrdersInBasket(order, concertData) {
-
 	const concerts = getOrdersFromBasket();
 	const existingOrder = concerts[order.id];
 	let newOrder = {...existingOrder};
 
 	// Math.max ensures no minus number
-	newOrder.fullPriceCount = Math.max((existingOrder ? existingOrder.fullPriceCount : 0) + order.fullPriceAdjustment, 0);
-	newOrder.concessionPriceCount = Math.max((existingOrder ? existingOrder.concessionPriceCount : 0) + order.concessionPriceAdjustment, 0);
+	newOrder.numOfFullPrice = Math.max((existingOrder ? existingOrder.numOfFullPrice : 0) + order.fullPriceAdjustment, 0);
+	newOrder.numOfConcessions = Math.max((existingOrder ? existingOrder.numOfConcessions : 0) + order.concessionPriceAdjustment, 0);
 
-	if((newOrder.fullPriceCount + newOrder.concessionPriceCount) <= concertData.availableTickets) {
+	if((newOrder.numOfFullPrice + newOrder.numOfConcessions) <= concertData.availableTickets) {
 		concerts[order.id] = newOrder;
 		localStorage.setItem("concerts", JSON.stringify(concerts));
 	} else {

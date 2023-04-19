@@ -71,7 +71,7 @@ function calculateTotal(orders, concerts) {
 	for (const concert of concerts) {
 		const order = orders[concert.id];
 		if (order)
-			total += order.fullPriceCount * concert.fullPrice + order.concessionPriceCount * concert.concessionPrice;
+			total += order.numOfFullPrice * concert.fullPrice + order.numOfConcessions * concert.concessionPrice;
 	}
 	return total;
 }

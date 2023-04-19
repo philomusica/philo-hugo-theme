@@ -20,35 +20,35 @@ async function generatePaymentIntent(paymentRequest) {
 	return clientSecret;
 }
 
-async function main() {
-	console.log("checkout.js connected");
-	const orders = getOrdersFromBasket()
-	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
-	const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
+async function processPayment(event, orderLines) {
+	event.preventDefault();
+    const firstName = document.querySelector('input[id="first-name"]').value;
+    const lastName = document.querySelector('input[id="last-name"]').value;
+    const email = document.querySelector('input[id="email"]').value;
 	const order = {
 		orderLines,
 		firstName,
 		lastName,
-		emailAdress
-	};
-	const clientSecret = await generatePaymentIntent(order);
+		email
+	}
+	const { clientSecret } = await generatePaymentIntent(order);
 	if(clientSecret) {
 		const options = {
 			clientSecret,
-			appearance: {/* */},
+			appearance: {},
 		}
 		const elements = stripe.elements(options);
 
 		const paymentElement = elements.create("payment");
 		paymentElement.mount("#payment-element");
 
-		const form = document.querySelector("payment-form");
+		const form = document.querySelector("#payment-form");
 		form.addEventListener("submit", async event => {
 			event.preventDefault();
 
 			const { error } = await stripe.confirmPayment({
 				elements,
-				confirmPayment: {
+				confirmParams: {
 					return_url: RETURN_URL,
 				},
 			});
@@ -60,6 +60,14 @@ async function main() {
 			}
 		});
 	}
+}
+
+async function main() {
+	const orders = getOrdersFromBasket()
+	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
+	const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
+	const formSubmit = document.querySelector(".form-submit");
+	formSubmit.addEventListener("click", (e) => processPayment(e, orderLines));
 }
 
 main();

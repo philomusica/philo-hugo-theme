@@ -1,5 +1,22 @@
 {{ define "main" }}
 	<div class="container">
+		<form onSubmit="processForm(event)">
+			<div class="form-input">
+				<input id="first-name" type="text" class="text-input" required/>
+			<span class="floating-label">First Name</span>
+			</div>
+			<div class="form-input">
+				<input id="last-name" type="text" class="text-input" required/>
+			<span class="floating-label">Last Name</span>
+			</div>
+			<div class="form-input">
+			<div class="form-input">
+				<input id="email" type="email" class="text-input" required/>
+				<span class="floating-label">Email Address</span>
+			</div>
+			<input class="form-submit" type="submit" />
+		</form>
+			
 		<form id="payment-form">
 		  <div id="payment-element">
 			<!-- Elements will create form elements here -->
