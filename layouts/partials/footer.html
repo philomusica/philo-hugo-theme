@@ -27,4 +27,6 @@
 	<script type="module" src="/js/basket.js"></script>
 {{ else if isset .Params "checkout" }}
 	<script type="module" src="/js/checkout.js"></script>
+{{ else if isset .Params "complete" }}
+	<script type="module" src="/js/complete.js"></script>
 {{ end }}

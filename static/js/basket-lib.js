@@ -1,6 +1,7 @@
 export const CONCESSION_CRITERIA = "Accompanied children under 16";
 export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter"
 export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter"
+export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU";
 
 function counterButtonsClick(e, concertData) {
 	let increment = 1;

@@ -1,6 +1,6 @@
-import { getOrdersFromBasket } from "./basket-lib.js";
+import { STRIPE_PUBLISHABLE_KEY, getOrdersFromBasket } from "./basket-lib.js";
 
-const stripe = Stripe('pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU');
+const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 const RETURN_URL = "https://dev.philomusica.org.uk/complete.html";
 
 async function generatePaymentIntent(paymentRequest) {
