@@ -10,6 +10,7 @@ stripe.retrievePaymentIntent(clientSecret).then(({paymentIntent}) => {
 	switch(paymentIntent.status) {
 		case "succeeded":
 			message.innerHTML = "Success! Payment received.";
+			localStorage.clear();
 			break;
 		case "processing":
 			message.innerHTML = "Payment processing. We'll update you when payment is received.";
