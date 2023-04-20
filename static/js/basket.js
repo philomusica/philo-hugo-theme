@@ -1,17 +1,20 @@
 import {
+	displayError,
 	getOrdersFromBasket,
+	isObjectNull,
 	removeIfEmpty,
 	removeItemFromBasket,
 	renderConcert,
 	renderTicketsInBasketCounter,
 } from "./basket-lib.js";
 
-const BASKET_ITEMS = "basket-items";
+const BASKET_ITEMS = ".column.center";
 const TRANSACTION_FEE = "transaction-fee";
 const SUB_TOTAL = "sub-total";
 const TOTAL = "total";
 const TRANSACTION_FEE_PERCENTAGE = 1.5;
 const TRANSACTION_FEE_FLAT_RATE = 0.2;
+const EMPTY_BASKET_MESSAGE = "Your basket is empty";
 
 async function main() {
 	const orders = getOrdersFromBasket();
@@ -26,7 +29,7 @@ async function main() {
 	const transactionFee = calcuateTransactionFee(subTotal);
 	const result = renderTotal(subTotal, transactionFee, orders, BASKET_ITEMS);
 	if (!result)
-		addEmptyBasketMessage(BASKET_ITEMS);
+		displayError(EMPTY_BASKET_MESSAGE);
 	else
 		addCheckoutButton(TOTAL);
 	addUpdateTotalEventListener(concerts);
@@ -50,12 +53,6 @@ function addDeleteButtons(orders) {
 	return
 }
 
-function addEmptyBasketMessage(insertPoint) {
-	const basketItems = document.querySelector(`.${insertPoint}`);
-	basketItems.insertAdjacentHTML("beforeend", "<div>Your basket is empty</div>");
-	return;
-}
-
 function addUpdateTotalEventListener(concerts) {
 	const buttons = document.querySelectorAll("button");
 	buttons.forEach(button => {
@@ -65,7 +62,7 @@ function addUpdateTotalEventListener(concerts) {
 			const transactionFee = calcuateTransactionFee(subTotal);
 			const result = renderTotal(subTotal, transactionFee, orders, BASKET_ITEMS);
 			if (!result)
-				addEmptyBasketMessage(BASKET_ITEMS);
+				displayError(EMPTY_BASKET_MESSAGE);
 			else
 				addCheckoutButton(TOTAL);
 		});
@@ -84,7 +81,7 @@ function calculateSubTotal(orders, concerts) {
 }
 
 function calcuateTransactionFee(subTotal) {
-	return Math.round((subTotal * (TRANSACTION_FEE_PERCENTAGE/100) + TRANSACTION_FEE_FLAT_RATE) * 100) / 100;
+	return Math.round((subTotal * (TRANSACTION_FEE_PERCENTAGE / 100) + TRANSACTION_FEE_FLAT_RATE) * 100) / 100;
 }
 
 async function getConcertFromOrder(orderId) {
@@ -117,14 +114,10 @@ async function getConcertsInfoFromOrders(orders) {
 	return concerts;
 }
 
-function isObjectNull(obj) {
-	return obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype;
-}
-
 function renderTotal(subTotal, transactionFee, orders, insertPoint) {
 	let result = false;
-	const total = subTotal+transactionFee;
-	const ordersNode = document.querySelector(`.${insertPoint}`);
+	const total = subTotal + transactionFee;
+	const ordersNode = document.querySelector(`${insertPoint}`);
 
 	const subTotalText = `SubTotal: ${subTotal}`;
 	const transactionFeeText = `Transaction Fee: ${transactionFee}`;
@@ -138,9 +131,9 @@ function renderTotal(subTotal, transactionFee, orders, insertPoint) {
 	const transactionFeeNode = document.querySelector(`.${TRANSACTION_FEE}`);
 	const totalNode = document.querySelector(`.${TOTAL}`);
 	if (isObjectNull(orders)) {
-		if(totalNode) totalNode.remove();
-		if(subTotalNode) subTotalNode.remove();
-		if(transactionFeeNode) transactionFeeNode.remove();
+		if (totalNode) totalNode.remove();
+		if (subTotalNode) subTotalNode.remove();
+		if (transactionFeeNode) transactionFeeNode.remove();
 	} else if (!isObjectNull(orders)) {
 		updateInnerTextOrCreateHTML(totalNode, totalText, totalHTML, ordersNode);
 		updateInnerTextOrCreateHTML(transactionFeeNode, transactionFeeText, transactionFeeHTML, ordersNode);

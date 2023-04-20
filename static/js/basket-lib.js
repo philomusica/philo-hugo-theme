@@ -1,3 +1,5 @@
+import { renderBasketCounter } from './basketCounter.js';
+
 export const CONCESSION_CRITERIA = "Accompanied children under 16";
 export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter"
 export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter"
@@ -21,6 +23,7 @@ function counterButtonsClick(e, concertData) {
 
 	const concerts = updateOrdersInBasket(orderChange, concertData);
 	renderTicketsInBasketCounter(concerts);
+	renderBasketCounter();
 	return;
 }
 
@@ -29,7 +32,7 @@ function counterButtonsClick(e, concertData) {
  * @param {string} err - the error message to display to the customer
 */
 export function displayError(err) {
-	console.log(err);
+	document.querySelector(".column.center").innerHTML = err;
 	return;
 }
 
@@ -40,6 +43,10 @@ export function displayError(err) {
 export function getOrdersFromBasket() {
 	const concerts = JSON.parse(localStorage.getItem("concerts"));
 	return concerts ? concerts : {};
+}
+
+export function isObjectNull(obj) {
+	return obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype;
 }
 
 export function removeIfEmpty(e) {
@@ -57,6 +64,7 @@ export function removeItemFromBasket(orderId) {
 	const order = document.querySelector(`.basket-items .concert-${orderId}`);
 	if(order)
 		order.remove();
+	renderBasketCounter();
 	return;
 }
 
@@ -109,7 +117,7 @@ export function renderConcert(concertData, insertPoint, editable) {
 			${concessionValueAndCount}
 		</div>
 	`;
-	document.querySelector(`#content .container .${insertPoint}`).insertAdjacentHTML("beforeend", div);
+	document.querySelector(`${insertPoint}`).insertAdjacentHTML("beforeend", div);
 	const buttons = document.querySelectorAll(`.concert-${concertData.id} button`);
 	buttons.forEach(button => button.addEventListener("click", event => counterButtonsClick(event, concertData)));
 	buttons.forEach(button => button.addEventListener("click", removeIfEmpty));

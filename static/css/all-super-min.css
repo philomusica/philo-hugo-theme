@@ -57,6 +57,14 @@
   content: "\f08c";
 }
 
+.fa-basket-shopping::before {
+  content: "\f291";
+}
+
+.fa-shopping-basket::before {
+  content: "\f291";
+}
+
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
 readers do not read off random characters that represent icons */
 

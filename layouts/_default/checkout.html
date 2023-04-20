@@ -1,30 +1,36 @@
 {{ define "main" }}
+<div class="section">
 	<div class="container">
-		<form onSubmit="processForm(event)">
-			<div class="form-input">
-				<input id="first-name" type="text" class="text-input" required/>
-			<span class="floating-label">First Name</span>
+		<div class="row">
+			<div class="column center">
+				<form onSubmit="processForm(event)">
+					<div class="form-input">
+						<input id="first-name" type="text" class="text-input" required />
+						<span class="floating-label">First Name</span>
+					</div>
+					<div class="form-input">
+						<input id="last-name" type="text" class="text-input" required />
+						<span class="floating-label">Last Name</span>
+					</div>
+					<div class="form-input">
+						<div class="form-input">
+							<input id="email" type="email" class="text-input" required />
+							<span class="floating-label">Email Address</span>
+						</div>
+						<input class="form-submit" type="submit" />
+				</form>
+
+				<form id="payment-form">
+					<div id="payment-element">
+						<!-- Elements will create form elements here -->
+					</div>
+					<button id="submit">Submit</button>
+					<div id="error-message">
+						<!-- Display error message to your customers here -->
+					</div>
+				</form>
 			</div>
-			<div class="form-input">
-				<input id="last-name" type="text" class="text-input" required/>
-			<span class="floating-label">Last Name</span>
-			</div>
-			<div class="form-input">
-			<div class="form-input">
-				<input id="email" type="email" class="text-input" required/>
-				<span class="floating-label">Email Address</span>
-			</div>
-			<input class="form-submit" type="submit" />
-		</form>
-			
-		<form id="payment-form">
-		  <div id="payment-element">
-			<!-- Elements will create form elements here -->
-		  </div>
-		  <button id="submit">Submit</button>
-		  <div id="error-message">
-			<!-- Display error message to your customers here -->
-		  </div>
-		</form>
+		</div>
 	</div>
+</div>
 {{ end }}

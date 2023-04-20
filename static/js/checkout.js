@@ -1,4 +1,4 @@
-import { STRIPE_PUBLISHABLE_KEY, getOrdersFromBasket } from "./basket-lib.js";
+import { STRIPE_PUBLISHABLE_KEY, displayError, getOrdersFromBasket, isObjectNull } from "./basket-lib.js";
 
 const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 const RETURN_URL = "https://dev.philomusica.org.uk/complete.html";
@@ -64,10 +64,14 @@ async function processPayment(event, orderLines) {
 
 async function main() {
 	const orders = getOrdersFromBasket()
-	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
-	const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
-	const formSubmit = document.querySelector(".form-submit");
-	formSubmit.addEventListener("click", (e) => processPayment(e, orderLines));
+	if(isObjectNull(orders))
+		displayError("Can't proceed to checkout as there are no items in your basket");
+	else {
+		// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
+		const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
+		const formSubmit = document.querySelector(".form-submit");
+		formSubmit.addEventListener("click", (e) => processPayment(e, orderLines));
+	}
 }
 
 main();

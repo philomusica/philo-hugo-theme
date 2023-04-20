@@ -28,10 +28,10 @@ function getQueryParameter() {
 function renderConcertData(concertData) {
 	if (concertData) {
 		if (Array.isArray(concertData))
-			concertData.forEach(c => renderConcert(c, "concerts", true));
+			concertData.forEach(c => renderConcert(c, ".column.center", true));
 
 		else
-			renderConcert(concertData, "concerts", true)
+			renderConcert(concertData, ".column.center", true)
 
 		const orders = getOrdersFromBasket();
 		renderTicketsInBasketCounter(orders);
@@ -60,6 +60,7 @@ function main() {
 		.catch(err => displayError(err));
 	*/
 	renderConcertData(JSON.parse(`[{"id":"1044","title":"Eternal Light","imageURL":"/img/spring-2023-poster-st-stephens.png","location":"St Stephen's Barbourne, Worcester","date":"Mon 25 Dec 2023","time":"6:49 PM","availableTickets":140,"fullPrice":10,"concessionPrice":0},{"id":"1045","title":"Eternal Light","imageURL":"/img/spring-2023-poster-st-stephens.png","location":"Holy Trinity Gloucester","date":"Mon 1 Jan 2024","time":"7:00 PM","availableTickets":140,"fullPrice":10,"concessionPrice":0}]`));
+	//displayError("There are no concert tickets available at the moment. Please check back again later");
 	return;
 }
 
