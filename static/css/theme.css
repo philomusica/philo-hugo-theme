@@ -199,7 +199,7 @@ article img {
 }
 
 .fa-shopping-basket {
-	font-size: 2.5rem;
+	font-size: 2rem;
 	position: relative;
 }
 
@@ -334,13 +334,13 @@ hr {
 }
 
 /* Link styling */
-a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name) {
+a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name, .basket-link) {
   text-decoration: none;
   color: #2f74ce;
   position: relative;
 }
 
-a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name)::before {
+a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name, .basket-link)::before {
   content: "";
   position: absolute;
   bottom: 0;
