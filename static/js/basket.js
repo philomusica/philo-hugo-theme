@@ -39,7 +39,8 @@ async function main() {
 function addCheckoutButton(insertPoint) {
 	const checkoutButton = document.querySelector(".checkout");
 	if (!checkoutButton)
-		document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", `<button class="checkout">Checkout</button>`);
+		//document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", `<button class="checkout">Checkout</button>`);
+		document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", `<a class="call-to-action checkout" href="/checkout.html">Checkout</a>`);
 	return;
 }
 
