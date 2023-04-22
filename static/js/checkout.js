@@ -21,17 +21,24 @@ async function generatePaymentIntent(paymentRequest) {
 }
 
 async function processPayment(event, orderLines) {
-	event.preventDefault();
-    const firstName = document.querySelector('input[id="first-name"]').value;
-    const lastName = document.querySelector('input[id="last-name"]').value;
-    const email = document.querySelector('input[id="email"]').value;
+	event.target.classList.add("hidden");
+    const firstName = document.querySelector('input[id="first-name"]');
+    const lastName = document.querySelector('input[id="last-name"]');
+    const email = document.querySelector('input[id="email"]');
 	const order = {
 		orderLines,
-		firstName,
-		lastName,
-		email
+		firstName: firstName.value,
+		lastName: lastName.value,
+		email: email.value
 	}
 	const { clientSecret } = await generatePaymentIntent(order);
+	/*
+	firstName.readOnly = true;
+	lastName.readOnly = true;
+	email.readOnly = true;
+	*/
+	
+	document.querySelector("#submit").classList.remove("hidden");
 	if(clientSecret) {
 		const options = {
 			clientSecret,
@@ -69,7 +76,8 @@ async function main() {
 	else {
 		// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
 		const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
-		const formSubmit = document.querySelector(".form-submit");
+		const formSubmit = document.querySelector(".form-input .call-to-action");
+		console.log(formSubmit);
 		formSubmit.addEventListener("click", (e) => processPayment(e, orderLines));
 	}
 }

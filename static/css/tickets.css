@@ -1,0 +1,52 @@
+.concerts {
+  margin: auto;
+}
+
+.concert {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+@media only screen and (max-width: 890px) {
+  .concert {
+    flex-direction: column;
+  }
+}
+
+.concert-image {
+  height: 10rem;
+}
+
+.concert .concert-column {
+  margin: 3rem;
+}
+
+.tickets-info {
+  height: 5rem;
+}
+
+.tickets-info div {
+  margin-bottom: 1rem;
+}
+
+.tickets-info .call-to-action {
+  margin: 2rem;
+  user-select: none;
+}
+
+.delete {
+  background-color: #f44336;
+}
+
+.totals {
+  display: block;
+}
+
+.totals * {
+  margin: 1rem 0;
+}
+
+#submit {
+  margin: 1rem 0;
+}

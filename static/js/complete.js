@@ -1,4 +1,5 @@
 import { STRIPE_PUBLISHABLE_KEY } from "./basket-lib.js";
+import { renderBasketCounter } from "./basketCounter.js";
 
 const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
@@ -12,6 +13,7 @@ if(clientSecret)
 			case "succeeded":
 				message.innerHTML = "Success! Payment received.";
 				localStorage.clear();
+				renderBasketCounter();
 				break;
 			case "processing":
 				message.innerHTML = "Payment processing. We'll update you when payment is received.";

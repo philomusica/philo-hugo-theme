@@ -14,9 +14,16 @@
 	<link rel="stylesheet" href="/css/contact.css"/>
 	<script src="https://www.google.com/recaptcha/api.js" defer></script>
 {{ end }}
+{{ if or (isset .Params "tickets") (isset .Params "basket") (isset .Params "checkout") }}
+	<link rel="stylesheet" href="/css/tickets.css"/>
+{{ end }}
+{{ if isset .Params "checkout" }}
+	<link rel="stylesheet" href="/css/contact.css"/>
+{{ end }}
 {{ if isset .Params "photos" }}
 	<link rel="stylesheet" href="/css/photos.css"/>
-{{ else if or (isset .Params "checkout") (isset .Params "complete") }}
+{{ end }}
+{{ if or (isset .Params "checkout") (isset .Params "complete") }}
 	<script src="https://js.stripe.com/v3/"></script>
 {{ end }}
 <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">

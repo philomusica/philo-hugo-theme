@@ -7,16 +7,16 @@ export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTf
 
 function counterButtonsClick(e, concertData) {
 	let increment = 1;
-	if(e.target.className === "minus")
+	if (e.target.className === "call-to-action minus")
 		increment = -1;
 
 	const orderChange = {
-		id: e.target.parentElement.parentElement.className.split('-')[1],
+		id: e.target.parentElement.parentElement.parentElement.className.split('-')[1],
 		fullPriceAdjustment: 0,
 		concessionPriceAdjustment: 0
 	};
 
-	if(e.target.parentElement.className === "full-price")
+	if (e.target.parentElement.className === "tickets-info full-price")
 		orderChange.fullPriceAdjustment = increment;
 	else
 		orderChange.concessionPriceAdjustment = increment;
@@ -32,7 +32,7 @@ function counterButtonsClick(e, concertData) {
  * @param {string} err - the error message to display to the customer
 */
 export function displayError(err) {
-	document.querySelector(".column.center").innerHTML = err;
+	document.querySelector(".concerts").innerHTML = err;
 	return;
 }
 
@@ -50,19 +50,20 @@ export function isObjectNull(obj) {
 }
 
 export function removeIfEmpty(e) {
-	const orderId = e.target.parentElement.parentElement.className.split('-')[1];
+	const orderId = e.target.parentElement.parentElement.parentElement.className.split('-')[1];
 	const concert = getOrdersFromBasket()[orderId];
-	if(concert.numOfFullPrice === 0 && concert.numOfConcessions === 0)
+	if (concert.numOfFullPrice === 0 && concert.numOfConcessions === 0)
 		removeItemFromBasket(orderId);
 	return;
 }
-	
+
 export function removeItemFromBasket(orderId) {
+	console.log(orderId);
 	let concerts = getOrdersFromBasket();
 	delete concerts[orderId];
 	localStorage.setItem("concerts", JSON.stringify(concerts));
-	const order = document.querySelector(`.basket-items .concert-${orderId}`);
-	if(order)
+	const order = document.querySelector(`.concert-${orderId}`);
+	if (order)
 		order.remove();
 	renderBasketCounter();
 	return;
@@ -75,50 +76,55 @@ export function removeItemFromBasket(orderId) {
 */
 export function renderConcert(concertData, insertPoint, editable) {
 	let fullPrice, concession;
-	if(concertData.concessionPrice === 0)
+	if (concertData.concessionPrice === 0)
 		concession = "FREE";
 	else
 		concession = `£${concertData.concessionPrice}`;
 
-	if(concertData.fullPrice === 0)
+	if (concertData.fullPrice === 0)
 		fullPrice = "FREE";
 	else
 		fullPrice = `£${concertData.fullPrice}`;
 
 	let fullPriceCount, conccessionPriceCount;
-	if(editable) {
-		fullPriceCount = `<button class="minus">-</button><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>`;
-		conccessionPriceCount = `<button class="minus">-</button><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><button class="plus">+</button>`;
+	if (editable) {
+		fullPriceCount = `<span class="call-to-action minus">-</span><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><span class="call-to-action plus">+</span>`;
+		conccessionPriceCount = `<span class="call-to-action minus">-</span><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><span class="call-to-action plus">+</span>`;
 	} else {
 		fullPriceCount = `<span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span>`;
 		conccessionPriceCount = `<span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span>`;
 	}
 
 	const fullPriceValueAndCount = `
-		<div class="full-price">
-			<span>Adult: ${fullPrice}</span> ${fullPriceCount}
+		<div class="tickets-info full-price">
+			<div>Adult: ${fullPrice}</div> ${fullPriceCount}
 		</div>`;
 
 	const concessionValueAndCount = `
-		<div class="concession">
-			<span>${CONCESSION_CRITERIA}: ${concession}</span> ${conccessionPriceCount}
+		<div class="tickets-info concession">
+			<div>${CONCESSION_CRITERIA}: ${concession}</div> ${conccessionPriceCount}
 		</div>
 	`;
-	
+
 	const div = `
-		<div class=concert-${concertData.id}>
-			<div>${concertData.id}</div>
-			<div>${concertData.title}</div>
-			<div>${concertData.description}</div>
-			<div>${concertData.location}</div>
-			<div>${concertData.date} ${concertData.time}</div>
-			<!-- <img src=${concertData.imageURL} alt=${concertData.description}> -->
-			${fullPriceValueAndCount}
-			${concessionValueAndCount}
+		<div class="concert concert-${concertData.id}">
+			<div class="concert-column">
+				<img class="concert-image" src=${concertData.imageURL} alt=${concertData.description}>
+			</div>
+			<div class="concert-column">
+				<div><b>${concertData.title}</b></div>
+				<div>${concertData.description}</div>
+				<div>${concertData.location}</div>
+				<div>${concertData.date} ${concertData.time}</div>
+			</div>
+			<div class="concert-column">
+				${fullPriceValueAndCount}
+				${concessionValueAndCount}
+			</div>
 		</div>
 	`;
 	document.querySelector(`${insertPoint}`).insertAdjacentHTML("beforeend", div);
-	const buttons = document.querySelectorAll(`.concert-${concertData.id} button`);
+	const buttons = document.querySelectorAll(`.concert-${concertData.id} .call-to-action`);
 	buttons.forEach(button => button.addEventListener("click", event => counterButtonsClick(event, concertData)));
 	buttons.forEach(button => button.addEventListener("click", removeIfEmpty));
 	return;
@@ -129,13 +135,13 @@ export function renderConcert(concertData, insertPoint, editable) {
  * @param {object} orders - the data returned from getOrdersFromBasket call
 */
 export function renderTicketsInBasketCounter(orders) {
-	for(const [id, order ] of Object.entries(orders)) {
+	for (const [id, order] of Object.entries(orders)) {
 		const fullPriceCounter = document.querySelector(`.concert-${id} .${FULL_PRICE_COUNTER_CLASS_NAME}`);
-		if(fullPriceCounter)
+		if (fullPriceCounter)
 			fullPriceCounter.innerHTML = order.numOfFullPrice;
 
 		const concessionCounter = document.querySelector(`.concert-${id} .${CONCESSION_COUNTER_CLASS_NAME}`);
-		if(concessionCounter)
+		if (concessionCounter)
 			concessionCounter.innerHTML = order.numOfConcessions;
 	}
 }
@@ -148,13 +154,13 @@ export function renderTicketsInBasketCounter(orders) {
 export function updateOrdersInBasket(order, concertData) {
 	const concerts = getOrdersFromBasket();
 	const existingOrder = concerts[order.id];
-	let newOrder = {...existingOrder};
+	let newOrder = { ...existingOrder };
 
 	// Math.max ensures no minus number
 	newOrder.numOfFullPrice = Math.max((existingOrder ? existingOrder.numOfFullPrice : 0) + order.fullPriceAdjustment, 0);
 	newOrder.numOfConcessions = Math.max((existingOrder ? existingOrder.numOfConcessions : 0) + order.concessionPriceAdjustment, 0);
 
-	if((newOrder.numOfFullPrice + newOrder.numOfConcessions) <= concertData.availableTickets) {
+	if ((newOrder.numOfFullPrice + newOrder.numOfConcessions) <= concertData.availableTickets) {
 		concerts[order.id] = newOrder;
 		localStorage.setItem("concerts", JSON.stringify(concerts));
 	} else {
