@@ -58,7 +58,6 @@ export function removeIfEmpty(e) {
 }
 
 export function removeItemFromBasket(orderId) {
-	console.log(orderId);
 	let concerts = getOrdersFromBasket();
 	delete concerts[orderId];
 	localStorage.setItem("concerts", JSON.stringify(concerts));

@@ -105,7 +105,13 @@ async function getConcertFromOrder(orderId) {
 async function getConcertsInfoFromOrders(orders) {
 	let concerts = new Array();
 	for (const [id] of Object.entries(orders)) {
-		concerts.push(await getConcertFromOrder(id));
+		const concert = await getConcertFromOrder(id);
+		if(concert.error !== null) {
+			delete orders[id];
+			removeItemFromBasket(id);
+		} else {
+			concerts.push(concert);
+		}
 	}
 	return concerts;
 }
