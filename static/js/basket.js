@@ -31,17 +31,17 @@ async function main() {
 function addCheckoutButton(insertPoint) {
 	const checkoutButton = document.querySelector(".checkout");
 	if (!checkoutButton)
-		document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", `<button class="checkout">Checkout</button>`);
+		document.querySelector(`.${insertPoint}`).insertAdjacentHTML("afterend", "<button class=\"checkout\">Checkout</button>");
 	return;
 }
 function addDeleteButtons(orders) {
-	for (const [id, _] of Object.entries(orders)) {
+	for (const [id] of Object.entries(orders)) {
 		const concertCard = document.querySelector(`.concert-${id}`);
 		concertCard.insertAdjacentHTML("beforeend", "<button class=\"delete\">X</button>");
 		const deleteButton = concertCard.querySelector(".delete");
-		deleteButton.addEventListener("click", e => removeItemFromBasket(e.target.parentElement.className.split('-')[1]));
+		deleteButton.addEventListener("click", e => removeItemFromBasket(e.target.parentElement.className.split("-")[1]));
 	}
-	return
+	return;
 }
 
 function addEmptyBasketMessage(insertPoint) {
@@ -63,7 +63,7 @@ function addUpdateTotalEventListener(concerts) {
 				addCheckoutButton(TOTAL);
 		});
 	});
-	return
+	return;
 }
 
 function calculateTotal(orders, concerts) {
@@ -77,11 +77,7 @@ function calculateTotal(orders, concerts) {
 }
 
 async function getConcertFromOrder(orderId) {
-	if (orderId === "1044")
-		return JSON.parse(`{"id":"1044","title":"Eternal Light","imageURL":"/img/spring-2023-poster-st-stephens.png","location":"St Stephen's Barbourne, Worcester","date":"Mon 25 Dec 2023","time":"6:49 PM","availableTickets":140,"fullPrice":10,"concessionPrice":0}`);
-	else if (orderId === "1045")
-		return JSON.parse(`{"id":"1045","title":"Eternal Light","imageURL":"/img/spring-2023-poster-st-stephens.png","location":"Holy Trinity Gloucester","date":"Mon 1 Jan 2024","time":"7:00 PM","availableTickets":140,"fullPrice":10,"concessionPrice":0}`);
-	/*
+	let result;
 	try {
 		const url = `https://api.philomusica.org.uk/concerts?id=${orderId}`;
 		const response = await fetch(url, {
@@ -94,7 +90,6 @@ async function getConcertFromOrder(orderId) {
 	} catch (e) {
 		console.log("error calling api", e);
 	}
-	*/
 	return JSON.parse(result);
 }
 

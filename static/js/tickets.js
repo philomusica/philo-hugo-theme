@@ -3,7 +3,7 @@ import {
 	displayError,
 	renderConcert,
 	renderTicketsInBasketCounter
-} from './basket-lib.js';
+} from "./basket-lib.js";
 
 /**
  * getQueryParameters receives any query parameters from the tickets URL, and generates a string that can be appended to the API to query a specific concert
@@ -31,7 +31,7 @@ function renderConcertData(concertData) {
 			concertData.forEach(c => renderConcert(c, "concerts", true));
 
 		else
-			renderConcert(concertData, "concerts", true)
+			renderConcert(concertData, "concerts", true);
 
 		const orders = getOrdersFromBasket();
 		renderTicketsInBasketCounter(orders);

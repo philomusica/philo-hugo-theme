@@ -1,6 +1,6 @@
 export const CONCESSION_CRITERIA = "Accompanied children under 16";
-export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter"
-export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter"
+export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter";
+export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter";
 
 function counterButtonsClick(e, concertData) {
 	let increment = 1;
@@ -8,7 +8,7 @@ function counterButtonsClick(e, concertData) {
 		increment = -1;
 
 	const orderChange = {
-		id: e.target.parentElement.parentElement.className.split('-')[1],
+		id: e.target.parentElement.parentElement.className.split("-")[1],
 		fullPriceAdjustment: 0,
 		concessionPriceAdjustment: 0
 	};
@@ -42,7 +42,7 @@ export function getOrdersFromBasket() {
 }
 
 export function removeIfEmpty(e) {
-	const orderId = e.target.parentElement.parentElement.className.split('-')[1];
+	const orderId = e.target.parentElement.parentElement.className.split("-")[1];
 	const concert = getOrdersFromBasket()[orderId];
 	if(concert.fullPriceCount === 0 && concert.concessionPriceCount === 0)
 		removeItemFromBasket(orderId);
