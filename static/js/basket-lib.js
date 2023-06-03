@@ -1,8 +1,8 @@
-import { renderBasketCounter } from './basketCounter.js';
+import { renderBasketCounter } from "./basketCounter.js";
 
 export const CONCESSION_CRITERIA = "Accompanied children under 16";
-export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter"
-export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter"
+export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter";
+export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter";
 export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU";
 
 function counterButtonsClick(e, concertData) {
@@ -11,7 +11,7 @@ function counterButtonsClick(e, concertData) {
 		increment = -1;
 
 	const orderChange = {
-		id: e.target.parentElement.parentElement.parentElement.className.split('-')[1],
+		id: e.target.parentElement.parentElement.parentElement.className.split("-")[1],
 		fullPriceAdjustment: 0,
 		concessionPriceAdjustment: 0
 	};
@@ -50,7 +50,7 @@ export function isObjectNull(obj) {
 }
 
 export function removeIfEmpty(e) {
-	const orderId = e.target.parentElement.parentElement.parentElement.className.split('-')[1];
+	const orderId = e.target.parentElement.parentElement.parentElement.className.split("-")[1];
 	const concert = getOrdersFromBasket()[orderId];
 	if (concert.numOfFullPrice === 0 && concert.numOfConcessions === 0)
 		removeItemFromBasket(orderId);
