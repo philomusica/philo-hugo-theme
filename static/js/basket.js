@@ -106,7 +106,7 @@ async function getConcertsInfoFromOrders(orders) {
 	let concerts = new Array();
 	for (const [id] of Object.entries(orders)) {
 		const concert = await getConcertFromOrder(id);
-		if(concert.error !== null) {
+		if(concert.error) {
 			delete orders[id];
 			removeItemFromBasket(id);
 		} else {
