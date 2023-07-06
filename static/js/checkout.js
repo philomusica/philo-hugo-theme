@@ -46,7 +46,7 @@ async function processPayment(event, orderLines) {
 		}
 		const elements = stripe.elements(options);
 
-		const paymentElement = elements.create("payment");
+		const paymentElement = elements.create("payment", { layout: "accordion" });
 		paymentElement.mount("#payment-element");
 
 		const form = document.querySelector("#payment-form");
