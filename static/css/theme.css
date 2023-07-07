@@ -216,6 +216,12 @@ article img {
   position: relative;
 }
 
+.small-basket {
+  font-size: 1.2rem;
+  color: white;
+  margin-right: 0.5rem;
+}
+
 .basket-counter {
   color: white;
   background-color: #2f74ce;

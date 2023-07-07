@@ -25,6 +25,13 @@ function counterButtonsClick(e, concertData) {
 	const concerts = updateOrdersInBasket(orderChange, concertData);
 	renderTicketsInBasketCounter(concerts);
 	renderBasketCounter();
+
+	const goToBasketBtn = e.target.parentElement.parentElement.parentElement.querySelector(".go-to-basket");
+	if(concerts[orderChange.id].numOfFullPrice === 0 && concerts[orderChange.id].numOfConcessions === 0)
+		goToBasketBtn.classList.add("hidden");
+	else
+		goToBasketBtn.classList.remove("hidden");
+
 	return;
 }
 
@@ -118,17 +125,18 @@ export function renderConcert(concertData, insertPoint, editable) {
 				<div><b>${concertData.title}</b></div>
 				<div>${concertData.description}</div>
 				<div>
-					<i class="fa-solid fa-location-dot"></i>
+					<i alt="location icon" class="fa-solid fa-location-dot"></i>
 					<span>${concertData.location}</span>
 				</div>
 				<div>
-					<i class="fa-solid fa-clock"></i>
+					<i alt="clock icon" class="fa-solid fa-clock"></i>
 					<span>${concertData.date} ${concertData.time}</span>
 				</div>
 			</div>
 			<div class="concert-column">
 				<div class="tickets-info full-price">${fullPriceValueAndCount}</div>
 				<div class="tickets-info concession">${concessionValueAndCount}</div>
+				<div class="hidden call-to-action go-to-basket"><i class="fas fa-shopping-basket small-basket"></i>Go to basket</div>
 			</div>
 		</div>
 	`;
