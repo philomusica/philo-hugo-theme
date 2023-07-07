@@ -1,9 +1,14 @@
 {{ define "main" }}
 <div class="section">
 	<div class="container">
+		<div class="spinner row hidden">
+			<div class="column center">
+				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="column center">
-				<form onSubmit="processForm(event)">
+				<form onSubmit="processPayment(event)">
 					<div class="form-input">
 						<input id="first-name" type="text" class="text-input" required />
 						<span class="floating-label">First Name</span>
@@ -18,7 +23,7 @@
 							<span class="floating-label">Email Address</span>
 						</div>
 					</div>
-					<div class="medium-btn call-to-action">Next</div>
+					<input class="medium-btn call-to-action" type="submit" value="Next" />`
 				</form>
 
 				<form id="payment-form">

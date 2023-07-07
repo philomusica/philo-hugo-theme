@@ -1,6 +1,6 @@
 import { renderBasketCounter } from "./basketCounter.js";
 
-export const CONCESSION_CRITERIA = "Accompanied children under 16";
+export const CONCESSION_CRITERIA = "Under 16";
 export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter";
 export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter";
 export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU";
@@ -11,15 +11,16 @@ function counterButtonsClick(e, concertData) {
 		increment = -1;
 
 	const orderChange = {
-		id: e.target.parentElement.parentElement.parentElement.className.split("-")[1],
+		id: e.target.parentElement.parentElement.parentElement.parentElement.className.split("-")[1],
 		fullPriceAdjustment: 0,
 		concessionPriceAdjustment: 0
 	};
 
-	if (e.target.parentElement.className === "tickets-info full-price")
+	if (e.target.parentElement.parentElement.className === "tickets-info full-price")
 		orderChange.fullPriceAdjustment = increment;
 	else
 		orderChange.concessionPriceAdjustment = increment;
+
 
 	const concerts = updateOrdersInBasket(orderChange, concertData);
 	renderTicketsInBasketCounter(concerts);
@@ -50,7 +51,7 @@ export function isObjectNull(obj) {
 }
 
 export function removeIfEmpty(e) {
-	const orderId = e.target.parentElement.parentElement.parentElement.className.split("-")[1];
+	const orderId = e.target.parentElement.parentElement.parentElement.parentElement.className.split("-")[1];
 	const concert = getOrdersFromBasket()[orderId];
 	if (concert.numOfFullPrice === 0 && concert.numOfConcessions === 0)
 		removeItemFromBasket(orderId);
@@ -85,25 +86,28 @@ export function renderConcert(concertData, insertPoint, editable) {
 	else
 		fullPrice = `£${concertData.fullPrice}`;
 
-	let fullPriceCount, conccessionPriceCount;
+	let fullPriceCount, concessionPriceCount;
 	if (editable) {
 		fullPriceCount = `<span class="call-to-action minus">-</span><span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span><span class="call-to-action plus">+</span>`;
-		conccessionPriceCount = `<span class="call-to-action minus">-</span><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><span class="call-to-action plus">+</span>`;
+		concessionPriceCount = `<span class="call-to-action minus">-</span><span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span><span class="call-to-action plus">+</span>`;
 	} else {
 		fullPriceCount = `<span class="${FULL_PRICE_COUNTER_CLASS_NAME}">0</span>`;
-		conccessionPriceCount = `<span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span>`;
+		concessionPriceCount = `<span class="${CONCESSION_COUNTER_CLASS_NAME}">0</span>`;
 	}
 
 	const fullPriceValueAndCount = `
-		<div class="tickets-info full-price">
-			<div>Adult: ${fullPrice}</div> ${fullPriceCount}
-		</div>`;
+		<div class="ticket-info">
+			<div>Adult</div>
+			<div>${fullPrice}</div>
+		</div>
+		<div>${fullPriceCount}</div>`;
 
 	const concessionValueAndCount = `
-		<div class="tickets-info concession">
-			<div>${CONCESSION_CRITERIA}: ${concession}</div> ${conccessionPriceCount}
+		<div class="ticket-info">
+			<div>${CONCESSION_CRITERIA}</div>
+			<div>${concession}</div>
 		</div>
-	`;
+		<div>${concessionPriceCount}</div>`;
 
 	const div = `
 		<div class="concert concert-${concertData.id}">
@@ -113,12 +117,18 @@ export function renderConcert(concertData, insertPoint, editable) {
 			<div class="concert-column">
 				<div><b>${concertData.title}</b></div>
 				<div>${concertData.description}</div>
-				<div>${concertData.location}</div>
-				<div>${concertData.date} ${concertData.time}</div>
+				<div>
+					<i class="fa-solid fa-location-dot"></i>
+					<span>${concertData.location}</span>
+				</div>
+				<div>
+					<i class="fa-solid fa-clock"></i>
+					<span>${concertData.date} ${concertData.time}</span>
+				</div>
 			</div>
 			<div class="concert-column">
-				${fullPriceValueAndCount}
-				${concessionValueAndCount}
+				<div class="tickets-info full-price">${fullPriceValueAndCount}</div>
+				<div class="tickets-info concession">${concessionValueAndCount}</div>
 			</div>
 		</div>
 	`;

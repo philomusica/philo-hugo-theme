@@ -4,13 +4,13 @@
 
 .concert {
   display: flex;
-  align-items: center;
   margin-bottom: 5rem;
 }
 
 @media only screen and (max-width: 890px) {
   .concert {
     flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -19,19 +19,22 @@
 }
 
 .concert .concert-column {
-  margin: 3rem;
+  margin: 1rem;
+  flex-basis: 33%;
 }
 
 .tickets-info {
-  height: 5rem;
-}
-
-.tickets-info div {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
+.ticket-info {
+  width: 5rem;
+}
+
 .tickets-info .call-to-action {
-  margin: 2rem;
+  margin: 1rem;
   user-select: none;
 }
 

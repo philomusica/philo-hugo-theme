@@ -43,9 +43,10 @@ function renderConcertData(concertData) {
  * main is the entry point for this component
 */
 function main() {
+	const spinner = document.querySelector(".spinner");
+	/*
 	const qp = getQueryParameter();
 	const url = `https://api.philomusica.org.uk/concerts${qp}`;
-	const spinner = document.querySelector(".spinner");
 	fetch(url, {
 		method: "GET",
 		headers: {
@@ -59,6 +60,22 @@ function main() {
 			return res.json()})
 		.then(res =>  renderConcertData(res))
 		.catch(err => displayError(err));
+		*/
+		spinner.remove();
+		renderConcertData([
+    {
+        "id": "1047",
+        "title": "Handel's Messiah",
+        "description": "Philomusica's debut performance at St. Philip's \u0026 St. James', bringing you a choral favourite in Handel's Messiah.",
+        "imageURL": "/img/philo-back-of-tewks-min.jpg",
+        "location": "St. Philip's \u0026 St. James', Cheltenham",
+        "date": "Sat 18 Nov 2023",
+        "time": "7:30 PM",
+        "availableTickets": 236,
+        "fullPrice": 15,
+        "concessionPrice": 0
+    }
+])
 	//displayError("There are no concert tickets available at the moment. Please check back again later");
 	return;
 }

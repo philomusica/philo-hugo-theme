@@ -126,6 +126,7 @@ td {
 .hidden {
   opacity: 0;
   visibility: hidden;
+  height: 0;
 }
 
 article img {
@@ -448,6 +449,15 @@ a:not(.menu-link, .call-to-action, .media-link, .gallery-image, .sub-menu-name, 
   100% {
     transform: translate(24px, 0);
   }
+}
+
+.fa-location-dot {
+  font-size: 1.2rem;
+}
+
+.fa-location-dot, .fa-clock {
+  margin-right: 0.5rem;
+  color: #2f74ce;
 }
 
 

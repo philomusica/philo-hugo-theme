@@ -20,7 +20,16 @@ async function generatePaymentIntent(paymentRequest) {
 	return clientSecret;
 }
 
-async function processPayment(event, orderLines) {
+window.processPayment = async function processPayment(event) {
+	event.preventDefault();
+	const orders = getOrdersFromBasket()
+	let orderLines;
+	if(isObjectNull(orders))
+		displayError("Can't proceed to checkout as there are no items in your basket");
+	else {
+		// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
+		orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
+	}
 	event.target.classList.add("hidden");
     const firstName = document.querySelector('input[id="first-name"]');
     const lastName = document.querySelector('input[id="last-name"]');
@@ -31,12 +40,11 @@ async function processPayment(event, orderLines) {
 		lastName: lastName.value,
 		email: email.value
 	}
+
+	const spinner = document.querySelector(".spinner");
+
+	spinner.classList.remove("hidden");
 	const { clientSecret } = await generatePaymentIntent(order);
-	/*
-	firstName.readOnly = true;
-	lastName.readOnly = true;
-	email.readOnly = true;
-	*/
 	
 	document.querySelector("#submit").classList.remove("hidden");
 	if(clientSecret) {
@@ -46,6 +54,7 @@ async function processPayment(event, orderLines) {
 		}
 		const elements = stripe.elements(options);
 
+		spinner.remove();
 		const paymentElement = elements.create("payment", { layout: "accordion" });
 		paymentElement.mount("#payment-element");
 
@@ -69,17 +78,3 @@ async function processPayment(event, orderLines) {
 	}
 }
 
-async function main() {
-	const orders = getOrdersFromBasket()
-	if(isObjectNull(orders))
-		displayError("Can't proceed to checkout as there are no items in your basket");
-	else {
-		// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
-		const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
-		const formSubmit = document.querySelector(".form-input .call-to-action");
-		console.log(formSubmit);
-		formSubmit.addEventListener("click", (e) => processPayment(e, orderLines));
-	}
-}
-
-main();
