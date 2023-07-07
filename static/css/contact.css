@@ -4,6 +4,7 @@ form {
   display: flex;
   flex-direction: column;
   text-align: left;
+  align-items: center;
 }
 
 .form-input {

@@ -45,6 +45,7 @@ function renderConcertData(concertData) {
 function main() {
 	const qp = getQueryParameter();
 	const url = `https://api.philomusica.org.uk/concerts${qp}`;
+	const spinner = document.querySelector(".spinner");
 	fetch(url, {
 		method: "GET",
 		headers: {
@@ -52,6 +53,7 @@ function main() {
 		},
 	})
 		.then(res => {
+			spinner.remove();
 			if(!res.ok)
 				throw new Error("Unable to find concerts");
 			return res.json()})

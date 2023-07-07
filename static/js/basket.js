@@ -19,6 +19,8 @@ const EMPTY_BASKET_MESSAGE = "Your basket is empty";
 async function main() {
 	const orders = getOrdersFromBasket();
 	const concerts = await getConcertsInfoFromOrders(orders);
+	const spinner = document.querySelector(".spinner");
+	spinner.remove();
 	for (const concert of concerts) {
 		renderConcert(concert, BASKET_ITEMS, true);
 		document.querySelectorAll(`.concert-${concert.id} button`).forEach(button => button.addEventListener("click", removeIfEmpty));
