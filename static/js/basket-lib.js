@@ -210,10 +210,11 @@ export function renderConcert(concertData, insertPoint, page) {
 		</div>
 	`;
 	document.querySelector(`${insertPoint}`).insertAdjacentHTML("beforeend", div);
-	const buttons = document.querySelectorAll(".counter");
+	const concertCard = document.querySelector(`.concert-${concertData.id}`);
+	const buttons = concertCard.querySelectorAll(".counter");
 	buttons.forEach(button => button.addEventListener("click", event => counterButtonsClick(event, concertData, page)));
 	buttons.forEach(button => button.addEventListener("click", e => removeIfEmpty(e, page)));
-	const deleteBtn = document.querySelector(".delete");
+	const deleteBtn = concertCard.querySelector(".delete");
 	if(deleteBtn)
 		deleteBtn.addEventListener("click", e => removeItemFromBasket(e.currentTarget.parentElement.parentElement.className.split("-")[1], page));
 	return;

@@ -54,9 +54,10 @@ function main() {
 	})
 		.then(res => {
 			spinner.remove();
-			if(!res.ok)
+			if (!res.ok)
 				throw new Error("Unable to find concerts");
-			return res.json()})
+			return res.json()
+		})
 		.then(res => renderConcertData(res))
 		.catch(() => displayError("There are currently no tickets available through the website. Please check back later."));
 	return;
