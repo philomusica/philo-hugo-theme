@@ -5,6 +5,7 @@
 .concert {
   display: flex;
   margin-bottom: 5rem;
+  align-items: center;
 }
 
 @media only screen and (max-width: 890px) {
@@ -26,7 +27,7 @@
 .tickets-info {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin: 0.5rem;
 }
 
 .ticket-info {
@@ -38,12 +39,18 @@
   user-select: none;
 }
 
+.go-to-basket {
+  display: block;
+}
+
 .delete {
   background-color: #f44336;
+  width: 1rem;
 }
 
 .totals {
   display: block;
+  margin-bottom: 2rem;
 }
 
 .totals * {

@@ -1,12 +1,25 @@
 {{ define "main" }}
 <div class="section">
 	<div class="container">
+		<div class="row hidden empty-message">
+			<div class="column center">
+				Your basket is empty
+			</div>
+		</div>
+
+		<div class="row totals">
+			<div class="column center">
+				<div class="total"><span>Total: </span><span class="total-value">0</span></div>
+			</div>
+		</div>
+
 		<div class="spinner row hidden">
 			<div class="column center">
 				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 			</div>
 		</div>
-		<div class="row">
+
+		<div class="row checkout-forms">
 			<div class="column center">
 				<form onSubmit="processPayment(event)">
 					<div class="form-input">

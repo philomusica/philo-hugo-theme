@@ -18,15 +18,15 @@
 			{{ if not (eq .Params.noMenu true) }}
 			<div class="menu-item {{ if and .Pages (not .IsHome) }}sub-menu{{ end }}">
 				{{ if and (.Pages) (not .IsHome) }}
-				<div class="sub-menu-item"><a class="sub-menu-name" href="{{ .Permalink }}">{{ .Title }}</a><i
+				<div class="sub-menu-item"><a class="sub-menu-name" href="{{ .RelPermalink }}">{{ .Title }}</a><i
 						class="fas fa-chevron-down"></i></div>
 				{{ else }}
-				<a class="menu-link" href="{{ .Permalink }}">{{ .Title }}</a>
+				<a class="menu-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
 				{{ end }}
 				{{ if and (.Pages) (not .IsHome) }}
 				<div class="sub-items collapsible hidden">
 					{{ range .Pages }}
-					<a class="menu-link" href="{{ .Permalink }}">{{ .Title }}</a>
+					<a class="menu-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
 					{{ end }}
 				</div>
 				{{ end }}

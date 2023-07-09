@@ -9,7 +9,6 @@ if(clientSecret)
 	stripe.retrievePaymentIntent(clientSecret).then(({paymentIntent}) => {
 		const messageTitle = document.querySelector("#message-title");
 		const message = document.querySelector("#message");
-		console.log(paymentIntent);
 
 		switch(paymentIntent.status) {
 			case "succeeded":

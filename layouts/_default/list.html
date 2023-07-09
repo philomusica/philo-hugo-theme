@@ -3,7 +3,7 @@
 		<div class="section">
 			<div class="container">
 				{{ if not .Parent.IsHome }}
-					<a href="{{ .Parent.Permalink }}">< Back to {{ .Parent.Title }}</a>
+					<a href="{{ .Parent.RelPermalink }}">< Back to {{ .Parent.Title }}</a>
 				{{ end }}
 				<div>{{ .Content }}</div>
 				{{ range .Pages }}
@@ -22,14 +22,14 @@
 						{{ $image = "" }}
 						{{ $image_description = "" }}
 					{{ end }}
-					<a class="media-link" href="{{ .Permalink }}">
+					<a class="media-link" href="{{ .RelPermalink }}">
 					<article>
 						<div class="list-image">
 							<img alt="{{ $image_description }}"src="{{ $image }}"/>
 						</div>
 						<div class="list-title">
 							<h1>{{ .Title }}</h1>
-							<a href="{{ .Permalink }}">More info...</a>
+							<a href="{{ .RelPermalink }}">More info...</a>
 						</div>
 					</article>
 					</a>

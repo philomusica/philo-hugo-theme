@@ -73,6 +73,10 @@
   content: "\f3c5";
 }
 
+.fa-trash-alt::before {
+  content: "\f2ed";
+}
+
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
 readers do not read off random characters that represent icons */
 

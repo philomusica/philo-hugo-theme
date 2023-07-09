@@ -1,7 +1,30 @@
-import { STRIPE_PUBLISHABLE_KEY, displayError, getOrdersFromBasket, isObjectNull } from "./basket-lib.js";
+import { 
+	STRIPE_PUBLISHABLE_KEY, 
+	calcuateTransactionFee, 
+	calculateSubTotal, 
+	getConcertsInfoFromOrders, 
+	getOrdersFromBasket, 
+	isObjectNull 
+} from "./basket-lib.js";
 
 const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 const RETURN_URL = "https://dev.philomusica.org.uk/complete.html";
+
+async function main() {
+	const orders = getOrdersFromBasket()
+	if(isObjectNull(orders)) {
+		document.querySelector(".checkout-forms").classList.add("hidden");
+		document.querySelector(".empty-message").classList.remove("hidden");
+	} else {
+		const orders = getOrdersFromBasket();
+		const concerts = await getConcertsInfoFromOrders(orders);
+		const subTotal = calculateSubTotal(orders, concerts);
+		const transactionFee = calcuateTransactionFee(subTotal);
+		const total = subTotal + transactionFee;
+		document.querySelector(".total-value").innerHTML = `£${total.toFixed(2)}`;
+	}
+
+}
 
 async function generatePaymentIntent(paymentRequest) {
 	let clientSecret = null;
@@ -23,13 +46,9 @@ async function generatePaymentIntent(paymentRequest) {
 window.processPayment = async function processPayment(event) {
 	event.preventDefault();
 	const orders = getOrdersFromBasket()
-	let orderLines;
-	if(isObjectNull(orders))
-		displayError("Can't proceed to checkout as there are no items in your basket");
-	else {
-		// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
-		orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
-	}
+	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
+	const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
+
 	event.target.classList.add("hidden");
     const firstName = document.querySelector('input[id="first-name"]');
     const lastName = document.querySelector('input[id="last-name"]');
@@ -78,3 +97,4 @@ window.processPayment = async function processPayment(event) {
 	}
 }
 
+main();

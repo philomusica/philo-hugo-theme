@@ -1,7 +1,7 @@
 {{ define "main" }}
 	{{ if not .Parent.IsHome }}
 		<div class="container">
-			<a href="{{ .Parent.Permalink }}">< Back to {{ .Parent.Title }}</a>
+			<a href="{{ .Parent.RelPermalink }}">< Back to {{ .Parent.Title }}</a>
 		</div>
 	{{ end }}
 	<div>
