@@ -12,7 +12,7 @@
 					{{ if isset $e "image" }}
 						<div class="column">{{ $e.text | markdownify }}</div>
 						<div class="center column">
-							<img class="column-image" alt="{{ $e.image_description }}" loading="lazy" src="{{ $e.image }}"/>
+							<img class="column-image" alt="{{ $e.image_description }}" loading="lazy" src="{{ $e.image }}">
 						</div>
 					{{ else }}
 						<div class="column center">{{ $e.text | markdownify }}</div>

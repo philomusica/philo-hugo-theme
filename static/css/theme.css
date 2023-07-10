@@ -197,6 +197,8 @@ article img {
   text-align: end;
   margin-right: 1.2%;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 1100px) {
@@ -222,6 +224,11 @@ article img {
   margin-right: 0.5rem;
 }
 
+.basket-link {
+  position: relative;
+  display: block;
+}
+
 .basket-counter {
   color: white;
   background-color: #2f74ce;
@@ -233,6 +240,7 @@ article img {
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 10;
 }
 
 .turn-chevron {
