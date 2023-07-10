@@ -24,11 +24,13 @@
 					{{ end }}
 					<a aria-label="Link to {{ .Title }}" class="media-link" href="{{ .RelPermalink }}">
 						<article>
+							{{ if not (eq $image "") }}
 							<div class="list-image">
 								<img alt="{{ $image_description }}" src="{{ $image }}">
 							</div>
+							{{ end }}
 							<div class="list-title">
-								<h1>{{ .Title }}</h1>
+								<h2>{{ .Title }}</h2>
 								More info...
 							</div>
 						</article>

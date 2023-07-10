@@ -13,11 +13,13 @@
 				<div class="row">
 					<div class="column">{{ $e.body | markdownify }}</div>
 				</div>
+				{{ if not (eq $e.image "") }}
 				<div class="row">
 					<div class="column">
 						<img class="column-image" alt="{{ $e.image_description }}" loading="lazy" src="{{ $e.image }}">
 					</div>
 				</div>
+				{{ end }}
 			</div>
 		</div>
 	{{ end }}
