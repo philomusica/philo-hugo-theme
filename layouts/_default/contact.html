@@ -15,16 +15,16 @@
 					<form onSubmit="processForm(event)">
 						<div class="form-input">
 							<input id="name" type="text" class="text-input" required/>
-						<span class="floating-label">Name</span>
+						<label for="name" class="floating-label">Name</label>
 						</div>
 						<div class="form-input">
 							<input id="email" type="email" class="text-input" required/>
-							<span class="floating-label">Email Address</span>
+							<label for="email" class="floating-label">Email Address</label>
 						</div>
 
 						<div class="form-input">
 							<textarea id="message" rows="4" cols="50" required></textarea>
-							<span class="floating-label">Message</span>
+							<label for="message" class="floating-label">Message</label>
 						</div>
 						<div class="g-recaptcha" data-sitekey="{{ .Site.Params.RecaptchaKey }}"></div>
 						<input class="form-submit" type="submit" />

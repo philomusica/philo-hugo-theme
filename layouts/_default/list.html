@@ -22,16 +22,16 @@
 						{{ $image = "" }}
 						{{ $image_description = "" }}
 					{{ end }}
-					<a class="media-link" href="{{ .RelPermalink }}">
-					<article>
-						<div class="list-image">
-							<img alt="{{ $image_description }}"src="{{ $image }}"/>
-						</div>
-						<div class="list-title">
-							<h1>{{ .Title }}</h1>
-							<a href="{{ .RelPermalink }}">More info...</a>
-						</div>
-					</article>
+					<a aria-label="Link to {{ .Title }}" class="media-link" href="{{ .RelPermalink }}">
+						<article>
+							<div class="list-image">
+								<img alt="{{ $image_description }}"src="{{ $image }}"/>
+							</div>
+							<div class="list-title">
+								<h1>{{ .Title }}</h1>
+								<a href="{{ .RelPermalink }}">More info...</a>
+							</div>
+						</article>
 					</a>
 				{{ end }}
 			</div>
