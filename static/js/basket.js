@@ -31,7 +31,8 @@ async function main() {
 }
 
 function addUpdateTotalEventListener(concerts) {
-	const buttons = document.querySelectorAll(".tickets-info .call-to-action");
+	const buttons = document.querySelectorAll(".tickets-info .call-to-action,.delete");
+	
 	
 	buttons.forEach(button => {
 		button.addEventListener("click", () => {
@@ -46,8 +47,10 @@ function addUpdateTotalEventListener(concerts) {
 
 function renderTotal(subTotal, transactionFee) {
 	const total = subTotal + transactionFee;
+	/*
 	document.querySelector(".sub-total-value").innerHTML = `£${subTotal}`;
 	document.querySelector(".transaction-fee-value").innerHTML = `£${transactionFee.toFixed(2)}`;
+	*/
 	document.querySelector(".total-value").innerHTML = `£${total.toFixed(2)}`;
 	return;
 }

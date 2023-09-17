@@ -85,6 +85,12 @@ window.processPayment = async function processPayment(event) {
 				elements,
 				confirmParams: {
 					return_url: RETURN_URL,
+					payment_method_data: {
+						billing_details: {
+							name: `${firstName.value} ${lastName.value}`,
+							email: email.value,
+						},
+					},
 				},
 			});
 

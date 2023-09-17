@@ -4,8 +4,8 @@ export const CONCESSION_CRITERIA = "Under 16s";
 export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter";
 export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter";
 export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU";
-const TRANSACTION_FEE_PERCENTAGE = 1.5;
-const TRANSACTION_FEE_FLAT_RATE = 0.2;
+const TRANSACTION_FEE_PERCENTAGE = 0; //1.5;
+const TRANSACTION_FEE_FLAT_RATE = 0; //0.2;
 
 function counterButtonsClick(e, concertData, page) {
 	let increment = 1;
