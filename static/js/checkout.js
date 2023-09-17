@@ -8,7 +8,7 @@ import {
 } from "./basket-lib.js";
 
 const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-const RETURN_URL = "https://dev.philomusica.org.uk/complete.html";
+const RETURN_URL = "https://philomusica.org.uk/complete";
 
 async function main() {
 	const orders = getOrdersFromBasket()

@@ -178,7 +178,7 @@ export function renderConcert(concertData, insertPoint, page) {
 					<img class="concert-image" src=${concertData.imageURL} alt=${concertData.description}>
 				</div>`;
 		description = `<div>${concertData.description}</div>`;
-		goToBasketBtn = `<a href="/basket.html" class="hidden call-to-action go-to-basket"><i class="fas fa-shopping-basket small-basket"></i>Go to basket</a>`;
+		goToBasketBtn = `<a href="/basket" class="hidden call-to-action go-to-basket"><i class="fas fa-shopping-basket small-basket"></i>Go to basket</a>`;
 	}
 
 
