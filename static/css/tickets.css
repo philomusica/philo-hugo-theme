@@ -1,0 +1,62 @@
+.concerts {
+  margin: auto;
+}
+
+.concert {
+  display: flex;
+  margin-bottom: 5rem;
+  align-items: center;
+}
+
+@media only screen and (max-width: 890px) {
+  .concert {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.concert-image {
+  height: 10rem;
+}
+
+.concert .concert-column {
+  margin: 1rem;
+  flex-basis: 33%;
+}
+
+.tickets-info {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+}
+
+.ticket-info {
+  width: 5rem;
+}
+
+.tickets-info .call-to-action {
+  margin: 1rem;
+  user-select: none;
+}
+
+.go-to-basket {
+  display: block;
+}
+
+.delete {
+  background-color: #f44336;
+  width: 1rem;
+}
+
+.totals {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.totals * {
+  margin: 1rem 0;
+}
+
+#submit {
+  margin: 1rem 0;
+}

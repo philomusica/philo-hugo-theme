@@ -1,38 +1,47 @@
 <div class="container">
-  <div class="header">
-    <div class="menu-icons">
-      <i aria-hidden="true" title="Open Menu" class="fas fa-bars hamburger"></i>
-      <i aria-hidden="true" title="Close Menu" class="fas fa-times cross"></i>
-    </div>
-    <div class="header-logo">
-      <a class="menu-link" href="/">
-        <img alt="Philomusica logo" width="85.94" height="112" src="/img/logo.jpg"/>
-      </a>
-    </div>
-	{{ $menuItem := .Site.Sections.ByWeight }}
-	{{ if eq .Site.Params.include_home_in_menu true }}
+	<div class="header">
+		<div class="menu-icons">
+			<i aria-hidden="true" title="Open Menu" class="fas fa-bars hamburger"></i>
+			<i aria-hidden="true" title="Close Menu" class="fas fa-times cross"></i>
+		</div>
+		<div class="header-logo">
+			<a class="menu-link" href="/">
+				<img alt="Philomusica logo" src="/img/logo.jpg">
+			</a>
+		</div>
+		{{ $menuItem := .Site.Sections.ByWeight }}
+		{{ if eq .Site.Params.include_home_in_menu true }}
 		{{ $menuItem = slice (.Site.Home) | append $menuItem }}
-	{{ end }}
-    <nav class="menu">
-      {{ range $menuItem }}
-        {{ if not (eq .Params.noMenu true) }}
-          <div class="menu-item {{ if and .Pages (not .IsHome) }}sub-menu{{ end }}">
-              {{ if and (.Pages) (not .IsHome) }}
-                <div class="sub-menu-item"><a class="sub-menu-name" href="{{ .Permalink }}">{{ .Title }}</a><i class="fas fa-chevron-down"></i></div>
-              {{ else }}
-                <a class="menu-link" href="{{ .Permalink }}">{{ .Title }}</a>
-              {{ end }}
-              {{ if and (.Pages) (not .IsHome) }}
-              <div class="sub-items collapsible hidden">
-                {{ range .Pages }}
-                  <a class="menu-link" href="{{ .Permalink }}">{{ .Title }}</a>
-                {{ end }}
-              </div>
-            {{ end }}
-          </div>
-        {{ end }}
-      {{ end }}
-    </nav>
-	<a class="call-to-action" href="{{ .Site.Params.call_to_action_link }}">{{ .Site.Params.call_to_action_text }}</a>
-  </div>
+		{{ end }}
+		<nav class="menu">
+			{{ range $menuItem }}
+			{{ if not (eq .Params.noMenu true) }}
+			<div class="menu-item {{ if and .Pages (not .IsHome) }}sub-menu{{ end }}">
+				{{ if and (.Pages) (not .IsHome) }}
+				<div class="sub-menu-item"><a class="sub-menu-name" href="{{ .RelPermalink }}">{{ .Title }}</a><i
+						class="fas fa-chevron-down"></i></div>
+				{{ else }}
+				<a class="menu-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+				{{ end }}
+				{{ if and (.Pages) (not .IsHome) }}
+				<div class="sub-items collapsible hidden">
+					{{ range .Pages }}
+					<a class="menu-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+					{{ end }}
+				</div>
+				{{ end }}
+			</div>
+			{{ end }}
+			{{ end }}
+		</nav>
+		<a class="call-to-action" href="{{ .Site.Params.call_to_action_link }}">{{ .Site.Params.call_to_action_text }}</a>
+		<div class="break basket-icon-row">
+			<i class="hidden fas fa-shopping-basket"></i>
+			<i class="hidden fas fa-shopping-basket"></i>
+			<a aria-label="link to basket" class="basket-link" href="/basket">
+				<div class="hidden basket-counter">0</div>
+				<i class="fas fa-shopping-basket"></i>
+			</a>
+		</div>
+	</div>
 </div>

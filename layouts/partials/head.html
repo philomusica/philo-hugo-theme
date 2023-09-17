@@ -1,22 +1,35 @@
 <title>{{ .Site.Title }}</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="{{ .Site.Title }}" />
-<meta property="og:url" content="{{ .Site.BaseURL }}" />
-<meta property="og:type" content="website" />
-<meta name="description" content="{{ .Site.Params.Description }}" />
-<meta property="og:description" content="{{ .Site.Params.Description }}" />
-<meta property="og:image" content="{{ .Site.BaseURL}}{{ .Site.Params.SiteImage }}" />
-<link rel="stylesheet" href="/css/all-super-min.css"/>
-<link rel="stylesheet" href="/css/fonts.css"/>
-<link rel="stylesheet" href="/css/theme.css"/>
+<meta property="og:title" content="{{ .Site.Title }}">
+<meta property="og:url" content="{{ .Site.BaseURL }}">
+<meta property="og:type" content="website">
+<meta name="description" content="{{ .Site.Params.Description }}">
+<meta property="og:description" content="{{ .Site.Params.Description }}">
+<meta property="og:image" content="{{ .Site.BaseURL}}{{ .Site.Params.SiteImage }}">
+<link rel="stylesheet" href="/css/all-super-min.css">
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/theme.css">
 {{ if isset .Params "contact" }}
-	<link rel="stylesheet" href="/css/contact.css"/>
+	<link rel="stylesheet" href="/css/contact.css">
 	<script src="https://www.google.com/recaptcha/api.js" defer></script>
 {{ end }}
+{{ if or (isset .Params "tickets") (isset .Params "basket") (isset .Params "checkout") }}
+	<link rel="stylesheet" href="/css/tickets.css">
+{{ end }}
+{{ if isset .Params "checkout" }}
+	<link rel="stylesheet" href="/css/contact.css">
+{{ end }}
 {{ if isset .Params "photos" }}
-	<link rel="stylesheet" href="/css/photos.css"/>
+	<link rel="stylesheet" href="/css/photos.css">
+{{ end }}
+{{ if or (isset .Params "checkout") (isset .Params "complete") }}
+	<script src="https://js.stripe.com/v3/"></script>
 {{ end }}
 <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+
+<!-- Just for dev! -->
+<meta name="robots" content="noindex,nofollow">
+<!-- Just for dev! -->

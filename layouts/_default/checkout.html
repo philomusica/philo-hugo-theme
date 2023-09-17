@@ -1,0 +1,55 @@
+{{ define "main" }}
+<div class="section">
+	<div class="container">
+		<div class="row hidden empty-message">
+			<div class="column center">
+				Your basket is empty
+			</div>
+		</div>
+
+		<div class="row totals">
+			<div class="column center">
+				<div class="total"><span>Total: </span><span class="total-value">0</span></div>
+			</div>
+		</div>
+
+		<div class="spinner row hidden">
+			<div class="column center">
+				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			</div>
+		</div>
+
+		<div class="row checkout-forms">
+			<div class="column center">
+				<form onSubmit="processPayment(event)">
+					<div class="form-input">
+						<input id="first-name" type="text" class="text-input" required />
+						<span class="floating-label">First Name</span>
+					</div>
+					<div class="form-input">
+						<input id="last-name" type="text" class="text-input" required />
+						<span class="floating-label">Last Name</span>
+					</div>
+					<div class="form-input">
+						<div class="form-input">
+							<input id="email" type="email" class="text-input" required />
+							<span class="floating-label">Email Address</span>
+						</div>
+					</div>
+					<input class="medium-btn call-to-action" type="submit" value="Next" />`
+				</form>
+
+				<form id="payment-form">
+					<div id="payment-element">
+						<!-- Elements will create form elements here -->
+					</div>
+					<button id="submit" class="hidden call-to-action">Submit</button>
+					<div id="error-message">
+						<!-- Display error message to your customers here -->
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{{ end }}

@@ -15,11 +15,19 @@
   </div>
 </footer>
 <script src="/js/headerAndFooter.js"></script>
+<script type="module" src="/js/basketCounter.js"></script>
 {{ if isset .Params "table" }}
 	<script src="/js/table.js"></script>
 {{ else if isset .Params "contact" }}
 	<script src="/js/contact.js"></script>
-{{ end }}
-{{ if isset .Params "photos" }}
+{{ else if isset .Params "photos" }}
 	<script src="/js/fslightbox.js"></script>
+{{ else if isset .Params "tickets" }}
+	<script type="module" src="/js/tickets.js"></script>
+{{ else if isset .Params "basket" }}
+	<script type="module" src="/js/basket.js"></script>
+{{ else if isset .Params "checkout" }}
+	<script type="module" src="/js/checkout.js"></script>
+{{ else if isset .Params "complete" }}
+	<script type="module" src="/js/complete.js"></script>
 {{ end }}
