@@ -7,11 +7,11 @@ import {
 	isObjectNull 
 } from "./basket-lib.js";
 
-const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+const stripe = Stripe(STRIPE_PUBLISHABLE_KEY); // eslint-disable-line no-undef
 const RETURN_URL = "https://philomusica.org.uk/complete";
 
 async function main() {
-	const orders = getOrdersFromBasket()
+	const orders = getOrdersFromBasket();
 	if(isObjectNull(orders)) {
 		document.querySelector(".checkout-forms").classList.add("hidden");
 		document.querySelector(".empty-message").classList.remove("hidden");
@@ -29,7 +29,7 @@ async function main() {
 async function generatePaymentIntent(paymentRequest) {
 	let clientSecret = null;
 	try {
-		const response = await fetch('https://api.philomusica.org.uk/order', {
+		const response = await fetch("https://api.philomusica.org.uk/order", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -45,20 +45,20 @@ async function generatePaymentIntent(paymentRequest) {
 
 window.processPayment = async function processPayment(event) {
 	event.preventDefault();
-	const orders = getOrdersFromBasket()
+	const orders = getOrdersFromBasket();
 	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
 	const orderLines = Object.entries(orders).map(([concertId, value]) => ({concertId, ...value})); 
 
 	event.target.classList.add("hidden");
-    const firstName = document.querySelector('input[id="first-name"]');
-    const lastName = document.querySelector('input[id="last-name"]');
-    const email = document.querySelector('input[id="email"]');
+    const firstName = document.querySelector("input[id=\"first-name\"]");
+    const lastName = document.querySelector("input[id=\"last-name\"]");
+    const email = document.querySelector("input[id=\"email\"]");
 	const order = {
 		orderLines,
 		firstName: firstName.value,
 		lastName: lastName.value,
 		email: email.value
-	}
+	};
 
 	const spinner = document.querySelector(".spinner");
 
@@ -70,7 +70,7 @@ window.processPayment = async function processPayment(event) {
 		const options = {
 			clientSecret,
 			appearance: {},
-		}
+		};
 		const elements = stripe.elements(options);
 
 		spinner.remove();
@@ -97,10 +97,9 @@ window.processPayment = async function processPayment(event) {
 			if(error) {
 				const messageContainer = document.querySelector("#error-message");
 				messageContainer.textContent = error.message;
-			} else {
 			}
 		});
 	}
-}
+};
 
 main();

@@ -3,7 +3,7 @@ import {
 	getOrdersFromBasket,
 	renderConcert,
 	renderTicketsInBasketCounter
-} from './basket-lib.js';
+} from "./basket-lib.js";
 
 /**
  * getQueryParameters receives any query parameters from the tickets URL, and generates a string that can be appended to the API to query a specific concert
@@ -31,7 +31,7 @@ function renderConcertData(concertData) {
 			concertData.forEach(c => renderConcert(c, ".concerts", "tickets"));
 
 		else
-			renderConcert(concertData, ".concerts", "tickets")
+			renderConcert(concertData, ".concerts", "tickets");
 
 		const orders = getOrdersFromBasket();
 		renderTicketsInBasketCounter(orders);
@@ -56,7 +56,7 @@ function main() {
 			spinner.remove();
 			if (!res.ok)
 				throw new Error("Unable to find concerts");
-			return res.json()
+			return res.json();
 		})
 		.then(res => renderConcertData(res))
 		.catch(() => displayError("There are currently no tickets available through the website. Please check back later."));

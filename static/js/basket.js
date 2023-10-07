@@ -42,7 +42,7 @@ function addUpdateTotalEventListener(concerts) {
 			renderTotal(subTotal, transactionFee, orders);
 		});
 	});
-	return
+	return;
 }
 
 function renderTotal(subTotal, transactionFee) {

@@ -1,7 +1,7 @@
 import { STRIPE_PUBLISHABLE_KEY } from "./basket-lib.js";
-import { renderBasketCounter } from "./basketCounter.js";
+import { renderBasketCounter } from "./basket-counter.js";
 
-const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+const stripe = Stripe(STRIPE_PUBLISHABLE_KEY); // eslint-disable-line no-undef
 
 const clientSecret = new URLSearchParams(window.location.search).get("payment_intent_client_secret");
 
