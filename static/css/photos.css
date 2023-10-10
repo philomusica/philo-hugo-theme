@@ -14,13 +14,13 @@
   margin: 1rem auto;
 }
 
-@media only screen and (max-width: 770px) {
+@media only screen and (width <= 770px) {
   .gallery-image {
     width: 33%;
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (width <= 500px) {
   .gallery {
     flex-direction: column;
   }

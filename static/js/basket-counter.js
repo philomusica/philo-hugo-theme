@@ -2,7 +2,7 @@ function calculateNoItemsInBasket() {
     const concerts = JSON.parse(localStorage.getItem("concerts"));
     const result = concerts ? concerts : {};
     let count = 0;
-    for(const [_, order ] of Object.entries(result)) {
+    for(const [, order ] of Object.entries(result)) {
         count += order.numOfFullPrice + (order.numOfConcessions >= 0 ? order.numOfConcessions : 0);
     }
     return count;
@@ -18,7 +18,7 @@ function updateUI(count) {
 }
 
 export function renderBasketCounter() {
-	const count = calculateNoItemsInBasket()
+	const count = calculateNoItemsInBasket();
 	updateUI(count);
 }
 

@@ -35,7 +35,7 @@ textarea:not(:focus):valid ~ .floating-label {
   outline: none;
 }
 
-@media only screen and (max-width: 770px) {
+@media only screen and (width <= 770px) {
   form {
     width: 90%;
   }

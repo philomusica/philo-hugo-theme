@@ -123,7 +123,7 @@ readers do not read off random characters that represent icons */
 }
 
 .fa-regular {
-  font-family: "Font Awesome 5 Regular";
+  font-family: "Font Awesome 5 Regular", sans-serif;
   font-style: normal;
 }
 
