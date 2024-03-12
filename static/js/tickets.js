@@ -64,4 +64,4 @@ function main() {
 }
 
 // Call entrypoint function
-main();
+//main();
