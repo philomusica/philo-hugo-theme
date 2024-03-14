@@ -23,20 +23,18 @@
 			<div class="column center">
 				<form onSubmit="processPayment(event)">
 					<div class="form-input">
-						<input id="first-name" type="text" class="text-input" required />
+						<input id="firstName" value="asdf" type="text" class="text-input" required />
 						<span class="floating-label">First Name</span>
 					</div>
 					<div class="form-input">
-						<input id="last-name" type="text" class="text-input" required />
+						<input id="lastName" value="asdf" type="text" class="text-input" required />
 						<span class="floating-label">Last Name</span>
 					</div>
 					<div class="form-input">
-						<div class="form-input">
-							<input id="email" type="email" class="text-input" required />
-							<span class="floating-label">Email Address</span>
-						</div>
+						<input id="email" value="asdf@asdf.com" type="email" class="text-input" required />
+						<span class="floating-label">Email Address</span>
 					</div>
-					<input class="medium-btn call-to-action" type="submit" value="Next" />`
+					<input id="next-btn" class="medium-btn call-to-action" type="submit" value="Next" />
 				</form>
 
 				<form id="payment-form">

@@ -3,7 +3,7 @@ import { renderBasketCounter } from "./basket-counter.js";
 export const CONCESSION_CRITERIA = "Under 16s";
 export const FULL_PRICE_COUNTER_CLASS_NAME = "full-price-counter";
 export const CONCESSION_COUNTER_CLASS_NAME = "concession-counter";
-export const STRIPE_PUBLISHABLE_KEY = "pk_live_51MeRCLILyl1183MBu3f8SHBuvuf9URqu72vwU06ZApvRGDsibltt9oyXgPAYd2H9vd5UTGsMe6CRCBnyYpckMb0z00ui4yZAIp";
+export const STRIPE_PUBLISHABLE_KEY = "pk_test_51MeRCLILyl1183MBN3PdFoF4iXh0ByTfGwg7C2xzEy8laiPSG7kxnwGLW4VdXRZqVHRSdtlXfej5nr8izn9XG9XY00orFiJohU";
 const TRANSACTION_FEE_PERCENTAGE = 0; //1.5;
 const TRANSACTION_FEE_FLAT_RATE = 0; //0.2;
 
