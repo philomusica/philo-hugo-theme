@@ -18,63 +18,7 @@ async function main() {
 		document.querySelector(".empty-message").classList.remove("hidden");
 	} else {
 		const orders = getOrdersFromBasket();
-		//const concerts = await getConcertsInfoFromOrders(orders);
-		const concertsJson = `
-		[
-			{
-			"id": "1050",
-			"title": "Come and Sing: Faure Requiem",
-			"description": "Join Philomusica for a Come and Sing day where we will be tackling Faure's Requiem and Rutter's Five Traditional Songs",
-			"imageURL": "/img/spring-2024-concert-st-stephens.jpg",
-			"location": "St. Stephen's, Barbourne, Worcester, WR3 7HS",
-			"date": "Sat 11 May 2024",
-			"time": "1:00 PM",
-			"availableTickets": 298,
-			"fullPrice": 10,
-			"concessionPrice": 0,
-			"additionalRequiredInfo": {
-			"perTicket": [
-			{
-			"key": "part",
-			"question": "What part do you sing?",
-			"formType": "select",
-			"options": [
-			"Soprano",
-			"Alto",
-			"Tenor",
-			"Bass",
-			"Not sure"
-			]
-			},
-			{
-				"key": "borrow",
-				"question": "Do you need to borrow a score?",
-				"formType": "select",
-				"options": [
-					"Faure",
-					"Rutter",
-					"Both",
-					"Neither"
-				]
-			},
-			{
-				"key": "allergies",
-				"question": "Do you have an allergies (for cattery purposes)?",
-				"formType": "text"
-			}
-			],
-			"perPurchase": [
-			{
-			"key": "contact",
-			"question": "Can we contact you about future events?",
-			"formType": "checkbox"
-			}
-			]
-			}
-			}
-			]
-		`
-		const concerts = JSON.parse(concertsJson);
+		const concerts = await getConcertsInfoFromOrders(orders);
 		addAdditionFields(concerts, orders);
 		const subTotal = calculateSubTotal(orders, concerts);
 		const transactionFee = calcuateTransactionFee(subTotal);
@@ -83,22 +27,22 @@ async function main() {
 	}
 }
 
-function addCheckboxField(field, concertId, isPerTicket) {
+function addCheckboxField(field, concertId, user) {
 	const checkboxHTML = `
 		<div class="form-input">
 			<span>${field.question}</span>
-			<input id="${field.key}" data-concertid="${concertId}" data-isperticket="${isPerTicket}" style="width: auto; margin-left: 1rem" type="checkbox"  />
+			<input id="${field.key}" data-question="${field.question}" data-concertid="${concertId}" data-user="${user}" style="width: auto; margin-left: 1rem" type="checkbox"  />
 		</div>
 	`;
 
 	nextButton.insertAdjacentHTML("beforebegin", checkboxHTML);
 }
 
-function addSelectField(field, concertId, isPerTicket) {
+function addSelectField(field, concertId, user) {
 	let selectHTML = `
 		<div class="form-input">
 			<span>${field.question}</span>
-			<select id="${field.key}" data-concertid="${concertId}" data-isperticket="${isPerTicket}" style="border: solid 1px #f0f0f0;" required>
+			<select id="${field.key}" data-question="${field.question}" data-concertid="${concertId}" data-user="${user}" style="border: solid 1px #f0f0f0;" required>
 				<option value="">--Please choose an option--</option>
 		`;
 	field.options.forEach(option => selectHTML = selectHTML.concat(`<option value="${option}">${option}</option>`));
@@ -107,34 +51,33 @@ function addSelectField(field, concertId, isPerTicket) {
 	nextButton.insertAdjacentHTML("beforebegin", selectHTML);
 }
 
-function addTextField(field, concertId, isPerTicket) {
+function addTextField(field, concertId, user) {
 	const textHTML = `
 		<div class="form-input">
 			<div>${field.question}</div>
-			<input id="${field.key}" data-concertid="${concertId}" data-isperticket="${isPerTicket}" type="text" class="text-input" />
+			<input id="${field.key}" data-question="${field.question}" data-concertid="${concertId}" data-user="${user}" type="text" class="text-input" />
 		</div>
 	`;
 	nextButton.insertAdjacentHTML("beforebegin", textHTML);
 
 }
 
-function addPerTicketField(field, concertId) {
-	const isPerTicket = true;
+function addPerTicketField(field, concertId, user) {
 	switch (field.formType) {
 		case "select":
-			addSelectField(field, concertId, isPerTicket);
+			addSelectField(field, concertId, user);
 			break;
 		case "text":
-			addTextField(field, concertId, isPerTicket);
+			addTextField(field, concertId, user);
 	}
 }
 
 function addPerPurchaseField(field, concertId) {
-	const isPerTicket = false;
+	const user = "customer";
 	if (document.querySelector(`#${field.key}`) === null) {
 		switch (field.formType) {
 			case "checkbox":
-				addCheckboxField(field, concertId, isPerTicket);
+				addCheckboxField(field, concertId, user);
 				break;
 		}
 	}
@@ -151,8 +94,10 @@ function addAdditionFields(concerts, orders) {
 		const ordersForConcert = orders[concert.id];
 		const numTicketsForConcert = ordersForConcert.numOfFullPrice + ordersForConcert.numOfConcessions;
 		for (let i = 0; i < numTicketsForConcert; i++) {
-			addAttendeeHeader(i + 1);
-			concert.additionalRequiredInfo.perTicket.forEach(field => addPerTicketField(field, concert.id));
+			if(concert.additionalRequiredInfo.perTicket.length > 0) {
+				addAttendeeHeader(i + 1);
+			}
+			concert.additionalRequiredInfo.perTicket.forEach(field => addPerTicketField(field, concert.id, `attendee-${i+1}`));
 		}
 	});
 }
@@ -176,36 +121,57 @@ async function generatePaymentIntent(paymentRequest) {
 
 window.processPayment = async function processPayment(event) {
 	event.preventDefault();
-	//event.target.classList.add("hidden");
+	event.target.classList.add("hidden");
 	const orders = getOrdersFromBasket();
-	console.log(orders);
 
-	const order = {
-		additionalFields: {
-		}
-	};
+	for(let [_, value] of Object.entries(orders))
+		value.additionalFields = [];
 
+	const order = {};
 	const coreFields = [ "firstName", "lastName", "email" ];
-
 	const inputs = Array.from(document.querySelectorAll("input"));
+
 	inputs.filter(input => input.id !== "next-btn").forEach(input => {
 		if(coreFields.includes(input.id))
 			order[input.id] = input.value
 		else {
-			if(input.dataset.isperticket)
-				order.additionalFields[input.id] = input.value;
+			let answer;
+			switch (input.value) {
+				case "on":
+					answer = "yes";
+					break;
+				case "off":
+					answer = "no";
+					break;
+				default:
+					answer = input.value;
+					break;
+			}
+			const concertId = input.dataset.concertid;
+			const additionalField = {
+				user: input.dataset.user,
+				question: input.dataset.question,
+				answer: answer
+			};
+			orders[concertId].additionalFields.push(additionalField);
 		}
+	});
+
+	const selects = Array.from(document.querySelectorAll("select"));
+	selects.forEach(select => {
+		const concertId = select.dataset.concertid;
+		const additionalField = {
+			user: select.dataset.user,
+			question: select.dataset.question,
+			answer: select.value
+		};
+		orders[concertId].additionalFields.push(additionalField);
 	});
 
 	// change { 1234: { fullPrice: 2, concession: 2} } to { id: 1234, fullPrice: 2, concession: 2 }
 	const orderLines = Object.entries(orders).map(([concertId, value]) => ({ concertId, ...value }));
 	order.orderLines = orderLines;
 
-	console.log(order);
-
-
-
-	/*
 	const spinner = document.querySelector(".spinner");
 
 	spinner.classList.remove("hidden");
@@ -246,7 +212,6 @@ window.processPayment = async function processPayment(event) {
 			}
 		});
 	}
-	*/
 };
 
 main();
