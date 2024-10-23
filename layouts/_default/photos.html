@@ -5,7 +5,7 @@
 			<div class="container">
 				<div class="gallery">
 					{{ range $j, $f := $e.images }}
-						<a class="gallery-image" data-fslightbox="gallery" href="{{ $f.source }}"><img alt="{{ $f.description }}" src="{{ $f.source }}"></a>
+						<a class="gallery-image" data-fslightbox="gallery" data-caption="{{ $f.caption}}" href="{{ $f.source }}"><img alt="{{ $f.description }}" src="{{ $f.source }}"></a>	
 					{{ end }}
 				</div>
 			</div>
