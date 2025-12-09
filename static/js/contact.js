@@ -36,7 +36,6 @@ function processForm(e) {
 	e.preventDefault();
 	clearAlert();
 	var URL = "https://api.philomusica.org.uk/contact-us";
-	console.log(grecaptcha);
 	/* eslint-disable */
 	grecaptcha.enterprise.ready(async () => {
 		const token = await grecaptcha.enterprise.execute('6LeLMSYsAAAAAAthZ1P7339h2TQk5GnGuzD1qF_l', {action: 'LOGIN'});
