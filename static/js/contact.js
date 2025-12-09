@@ -36,45 +36,42 @@ function processForm(e) {
 	e.preventDefault();
 	clearAlert();
 	var URL = "https://api.philomusica.org.uk/contact-us";
+	console.log(grecaptcha);
 	/* eslint-disable */
-	grecaptcha.ready(function() {
-		grecaptcha.execute("6LcnzosoAAAAAAkD2T7KwBmLJMglUwCXo8OFzufO", { action: 'submit' }).then(function(token) {
+	grecaptcha.enterprise.ready(async () => {
+		const token = await grecaptcha.enterprise.execute('6LeLMSYsAAAAAAthZ1P7339h2TQk5GnGuzD1qF_l', {action: 'LOGIN'});
+		const name = document.querySelector("input[id=\"name\"]");
+		const email = document.querySelector("input[id=\"email\"]");
+		var message = document.querySelector("textarea[id=\"message\"]");
+		var data = {
+			name: name.value,
+			email: email.value,
+			message: message.value,
+			/* eslint-disable */
+			token: token
 			/* eslint-enable */
+		};
 
-			const name = document.querySelector("input[id=\"name\"]");
-			const email = document.querySelector("input[id=\"email\"]");
-			var message = document.querySelector("textarea[id=\"message\"]");
-			var data = {
-				name: name.value,
-				email: email.value,
-				message: message.value,
-				/* eslint-disable */
-				token: token
-				/* eslint-enable */
-			};
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", URL, true);
+		xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
 
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", URL, true);
-			xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+		// send the collected data as JSON
+		xhr.send(JSON.stringify(data));
 
-			// send the collected data as JSON
-			xhr.send(JSON.stringify(data));
-
-			xhr.onload = function() {
-				if (xhr.status === 200) {
-					feedbackToUser("success");
-				} else {
-					feedbackToUser("fail");
-				}
-			};
-
-			xhr.onerror = function() {
+		xhr.onload = function() {
+			if (xhr.status === 200) {
+				feedbackToUser("success");
+			} else {
 				feedbackToUser("fail");
-			};
+			}
+		};
 
-			clearForm(name, email, message);
+		xhr.onerror = function() {
+			feedbackToUser("fail");
+		};
 
-		});
+		clearForm(name, email, message);
 	});
 }
 
