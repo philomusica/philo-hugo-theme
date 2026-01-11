@@ -122,5 +122,13 @@ const widthChange = (mq) => {
     }
 };
 
+const calculateYear = () => {
+	const copyright = document.querySelector(".copyright");
+	const date = new Date();
+	copyright.innerHTML = `© Philomusica ${date.getFullYear()}`;
+}
+
+calculateYear();
+
 widthChange(mq);
 mq.addEventListener("change", widthChange);
