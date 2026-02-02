@@ -114,7 +114,7 @@ async function generatePaymentIntent(paymentRequest) {
 		});
 		clientSecret = await response.json();
 	} catch (e) {
-		console.log("Error generating payment intent");
+		console.error("Error generating payment intent");
 	}
 	return clientSecret;
 }

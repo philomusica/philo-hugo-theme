@@ -58,7 +58,7 @@ async function getConcertFromOrder(orderId) {
 		});
 		result = await response.json();
 	} catch (e) {
-		console.log("error calling api", e);
+		console.error("error calling api", e);
 	}
 	return result;
 }
