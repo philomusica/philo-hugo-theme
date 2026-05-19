@@ -37,8 +37,11 @@ function processForm(e) {
 	clearAlert();
 	var URL = "https://api.philomusica.org.uk/contact-us";
 	/* eslint-disable */
+    });
 	grecaptcha.enterprise.ready(async () => {
-		const token = await grecaptcha.enterprise.execute('6LeLMSYsAAAAAAthZ1P7339h2TQk5GnGuzD1qF_l', {action: 'LOGIN'});
+		const token = await grecaptcha.enterprise.execute('6Leiw_EsAAAAAHlyoPSNFkJvNhoai-HO2-Q0lN_D', {action: 'LOGIN'});
+		/* eslint-enable */
+
 		const name = document.querySelector("input[id=\"name\"]");
 		const email = document.querySelector("input[id=\"email\"]");
 		var message = document.querySelector("textarea[id=\"message\"]");
@@ -69,7 +72,6 @@ function processForm(e) {
 		xhr.onerror = function() {
 			feedbackToUser("fail");
 		};
-
 		clearForm(name, email, message);
 	});
 }
